@@ -7,10 +7,10 @@ let profileText = profile.querySelector('.profile__text');
 let profileTitle = profileText.querySelector('.profile__name');
 let profileSubtitle = profileText.querySelector('.profile__job');
 let popupContainer = content.querySelector('.popup');
-let nameInput = popupContainer.querySelector('.input__name');
-let jobInput = popupContainer.querySelector('.input__job')
-let saveProfileBtn = popupContainer.querySelector('.btn__save');
-let closeEditProfileBtn = popupContainer.querySelector('.btn__close');
+let nameInput = popupContainer.querySelector('.popup__input_type_name');
+let jobInput = popupContainer.querySelector('.popup__input_type_job')
+let saveProfileBtn = popupContainer.querySelector('.popup__btn_type_save');
+let closeEditProfileBtn = popupContainer.querySelector('.popup__btn_type_close');
 let warningList;
 
 openEditProfileBtn.addEventListener('click', openEditProfilePopup)
@@ -40,8 +40,8 @@ function openEditProfilePopup() {
 
 function saveProfile(evt) {
   evt.preventDefault();
-  nameInput = popupContainer.querySelector('.input__name');
-  jobInput = popupContainer.querySelector('.input__job')
+  nameInput = popupContainer.querySelector('.popup__input_type_name');
+  jobInput = popupContainer.querySelector('.popup__input_type_job')
   if ((nameInput.value == '') || (jobInput.value == '')) {
     saveProfileBtn.insertAdjacentHTML('beforebegin', `<h4 class="warning">Please fill your info.</h4>`)
   } else {
@@ -63,8 +63,8 @@ function clearWarning() {
 
 // function openAddProfilePopup() {
 //     popupContainer.classList.toggle('popup_opened');
-//     nameInput = popupContainer.querySelector('.input__name');
-//     jobInput = popupContainer.querySelector('.input__job')
+//     nameInput = popupContainer.querySelector('.popup__input_type_name');
+//     jobInput = popupContainer.querySelector('.popup__input_type_job')
 //     addProfile(nameInput.value, jobInput.value)
 // }
 
