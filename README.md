@@ -44,12 +44,12 @@
 * [Link to GitHub Pages](https://tongkorn.github.io/web_project_4/index.html)
 
 ```
-       /^-^\
-      / o o \
-     /   Y   \
-     V \ v / V
-       / - \
-      /    |
-(    /     |
- ===/___) ||
+       /^-^\         /^-----^\
+      / o o \        V  o o  V
+     /   Y   \        |  Y  |
+     V \ v / V         \ Q /
+       / - \           / - \
+      /    |           |    \
+(    /     |           |     \     )
+ ===/___) ||           || (___\====
 ```
