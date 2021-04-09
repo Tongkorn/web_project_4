@@ -6,7 +6,7 @@ let openEditProfileBtn = profile.querySelector('#profile-edit-btn')
 let profileText = profile.querySelector('.profile__text');
 let profileTitle = profileText.querySelector('.profile__name');
 let profileSubtitle = profileText.querySelector('.profile__job');
-let popupContainer = content.querySelector('.popup__container');
+let popupContainer = content.querySelector('.popup');
 let nameInput = popupContainer.querySelector('.input__name');
 let jobInput = popupContainer.querySelector('.input__job')
 let saveProfileBtn = popupContainer.querySelector('.btn__save');
@@ -28,7 +28,7 @@ if (likeBtnList.length > 0) {
     likeBtnList.forEach(element => {
         console.log(element)
         element.addEventListener('click', function () {
-            element.classList.toggle('card__like-active')
+            element.classList.toggle('card__like_active')
         })
     })
 }

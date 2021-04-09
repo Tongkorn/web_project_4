@@ -1,0 +1,23 @@
+.btn__close {
+    position: absolute;
+    top: -34px;
+    right: 0px;
+    transform: rotate(45deg);
+    border: none;
+    padding: 0;
+    background: transparent;
+}
+
+.btn__close:hover,
+.btn__close:focus {
+    opacity: 0.6;
+    cursor: pointer;
+    outline: none;
+}
+
+@media screen and (min-width: 1280px) {
+    .btn__close {
+        top: -38px;
+        right: -36px;
+    }
+}

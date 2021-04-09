@@ -1,0 +1,15 @@
+.card {
+    max-width: 282px;
+    min-width: 282px;
+    height: auto;
+    background: #ffffff;
+    border-radius: 10px;
+    color: #000000;
+    margin-top: 20px;
+}
+
+@media (min-width: 1280px) {
+    .card:not(:nth-child(3n)) {
+        margin-right: 17px;
+    }
+}

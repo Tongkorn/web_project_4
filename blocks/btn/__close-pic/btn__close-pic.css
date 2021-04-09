@@ -1,0 +1,8 @@
+.btn__close-pic {
+    min-width: 26px;
+}
+@media screen and (min-width: 1280px) {
+    .btn__close-pic {
+        min-width: 40px;
+    }
+}
