@@ -1,16 +1,55 @@
-# Project 4: Around The U.S.
+# Project 4: Around The U.S. :smile:
 
 ### Overview
 
+* Features
+* Technology
 * Figma
-* Images
+* Plan on Improving the project
+* Link to Github Pages
+
+**Features**
+
+* Super simple
+* Profile edit popup on click
+* Instant changes on edit
+* Responsive design based on screen widths:
+  - 320px
+  - 1280px
+* Links effect on hover
+* Like buttons effect on click
+* Simple form validation with warning text
+* Use "Inter" Fonts
+
+**Technology**
+
+* HTML5
+* CSS3
+* Javascript
 
 **Figma**
 
 * [Link to the project in Figma](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
 
-**Images**
+**Plan on Improving the project**
 
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
+- [ ] New feature - Add Profile
+- [ ] New feature - Add Card
+- [ ] New feature - Delete Profile 
+- [ ] New feature - Delete Card 
+- [ ] Store in server
 
-Have fun with JavaScript!
+**GitHub Pages** :+1:
+
+* [Link to GitHub Pages](https://tongkorn.github.io/web_project_4/index.html)
+
+```
+       /^-^\         /^-----^\
+      / o o \        V  o o  V
+     /   Y   \        |  Y  |
+     V \ v / V         \ Q /
+       / - \           / - \
+      /    |           |    \
+(    /     |           |     \     )
+ ===/___) ||           || (___\====
+```
