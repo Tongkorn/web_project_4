@@ -24,43 +24,41 @@ saveProfileBtn.addEventListener('click', saveProfile);
 
 let likeBtnList = content.querySelectorAll('.card__like');
 if (likeBtnList.length > 0) {
-    console.log(likeBtnList)
-    likeBtnList.forEach(element => {
-        console.log(element)
-        element.addEventListener('click', function () {
-            element.classList.toggle('card__like_active')
-        })
+  likeBtnList.forEach(element => {
+    element.addEventListener('click', function () {
+      element.classList.toggle('card__like_active')
     })
+  })
 }
 
 function openEditProfilePopup() {
-    popupContainer.classList.toggle('popup_opened');
-    nameInput.value = profileTitle.innerText;
-    jobInput.value = profileSubtitle.innerText;
-    clearWarning();
+  popupContainer.classList.toggle('popup_opened');
+  nameInput.value = profileTitle.innerText;
+  jobInput.value = profileSubtitle.innerText;
+  clearWarning();
 }
 
 function saveProfile(evt) {
-    evt.preventDefault();
-    nameInput = popupContainer.querySelector('.input__name');
-    jobInput = popupContainer.querySelector('.input__job')
-    if ((nameInput.value == '') || (jobInput.value == '')) {
-        saveProfileBtn.insertAdjacentHTML('beforebegin', `<h4 class="warning">Please fill your info.</h4>`)
-    } else {
-        profileTitle.innerText = nameInput.value;
-        profileSubtitle.innerText = jobInput.value;
-        popupContainer.classList.toggle('popup_opened');
-        clearWarning();
-    }
+  evt.preventDefault();
+  nameInput = popupContainer.querySelector('.input__name');
+  jobInput = popupContainer.querySelector('.input__job')
+  if ((nameInput.value == '') || (jobInput.value == '')) {
+    saveProfileBtn.insertAdjacentHTML('beforebegin', `<h4 class="warning">Please fill your info.</h4>`)
+  } else {
+    profileTitle.innerText = nameInput.value;
+    profileSubtitle.innerText = jobInput.value;
+    popupContainer.classList.toggle('popup_opened');
+    clearWarning();
+  }
 }
 
 function clearWarning() {
-    warningList = popupContainer.querySelectorAll('.warning');
-    if (warningList.length > 0) {
-        warningList.forEach(element => {
-            element.remove();
-        });
-    }
+  warningList = popupContainer.querySelectorAll('.warning');
+  if (warningList.length > 0) {
+    warningList.forEach(element => {
+      element.remove();
+    });
+  }
 }
 
 // function openAddProfilePopup() {
