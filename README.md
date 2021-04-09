@@ -39,6 +39,6 @@
 - [ ] New feature - Delete Card 
 - [ ] Store in server
 
-**Link to Github Pages**
+**GitHub Pages**
 
-[Link to github pages](https://tongkorn.github.io/web_project_4/index.html)
+* [Link to GitHub Pages](https://tongkorn.github.io/web_project_4/index.html)
