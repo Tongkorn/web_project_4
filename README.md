@@ -1,4 +1,4 @@
-# Project 4: Around The U.S.
+# Project 4: Around The U.S. :smile:
 
 ### Overview
 
@@ -39,6 +39,6 @@
 - [ ] New feature - Delete Card 
 - [ ] Store in server
 
-**GitHub Pages**
+**GitHub Pages** :+1:
 
 * [Link to GitHub Pages](https://tongkorn.github.io/web_project_4/index.html)
