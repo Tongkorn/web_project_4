@@ -13,7 +13,7 @@
 * Super simple
 * Profile edit popup on click
 * Instant changes on edit
-* Responsive design based on screen width:
+* Responsive design based on screen widths:
   - 320px
   - 1280px
 * Links effect on hover
