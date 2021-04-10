@@ -1,23 +1,27 @@
 .popup__btn_type_close {
-    position: absolute;
-    top: -34px;
-    right: 0px;
-    transform: rotate(45deg);
-    border: none;
-    padding: 0;
-    background: transparent;
+  position: absolute;
+  height: 26px;
+  left: 91.69%;
+  right: 9.18%;
+  top: -34px;
+  transform: rotate(-45deg);
+  border: none;
+  padding: 0;
+  background: transparent;
 }
 
 .popup__btn_type_close:hover,
 .popup__btn_type_close:focus {
-    opacity: 0.6;
-    cursor: pointer;
-    outline: none;
+  opacity: 0.6;
+  cursor: pointer;
+  outline: none;
 }
 
 @media screen and (min-width: 1280px) {
-    .popup__btn_type_close {
-        top: -38px;
-        right: -36px;
-    }
+  .popup__btn_type_close {
+    height: 40px;
+    left: 100%;
+    right: 30.73%;
+    top: -42px;
+  }
 }

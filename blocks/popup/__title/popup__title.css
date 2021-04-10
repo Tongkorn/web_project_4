@@ -1,4 +1,14 @@
 .popup__title {
-    padding: 0;
-    margin: 0 auto 76px;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 22px;
+  padding: 0;
+  margin: 0 auto 76px;
+}
+@media screen and (min-width: 1280px) {
+  .popup__title {
+    font-size: 24px;
+    line-height: 29px;
+  }
 }
