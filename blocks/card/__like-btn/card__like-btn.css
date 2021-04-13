@@ -1,0 +1,19 @@
+.card__like-btn {
+  padding: 0;
+  background-image: url(../../../images/heart.svg);
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  background-size: 21px;
+  border: none;
+  width: 100%;
+  max-width: 21px;
+}
+
+.card__like-btn:hover,
+.card__like-btn:focus {
+  opacity: 0.5;
+  cursor: pointer;
+  outline: none;
+}

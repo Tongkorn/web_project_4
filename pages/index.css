@@ -1,7 +1,7 @@
 @import url(../vendor/normalize.css);
 @import url(../vendor/fonts.css);
 @import url(../blocks/root/root.css);
-@import url(../blocks/root/root__container.css);
+@import url(../blocks/root/__container/root__container.css);
 
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
@@ -29,12 +29,11 @@
 @import url(../blocks/popup/__btn/popup__btn.css);
 @import url(../blocks/popup/__btn/_type/popup__btn_type_save.css);
 @import url(../blocks/popup/__btn/_type/popup__btn_type_close.css);
-@import url(../blocks/popup/__close-pic/popup__close-pic.css);
 
 @import url(../blocks/cards/cards.css);
 @import url(../blocks/card/card.css);
 @import url(../blocks/card/__pic/card__pic.css);
 @import url(../blocks/card/__content/card__content.css);
 @import url(../blocks/card/__title/card__title.css);
-@import url(../blocks/card/__like/card__like.css);
-@import url(../blocks/card/__like/_active/card__like_active.css);
+@import url(../blocks/card/__like-btn/card__like-btn.css);
+@import url(../blocks/card/__like-btn/_active/card__like_active.css);

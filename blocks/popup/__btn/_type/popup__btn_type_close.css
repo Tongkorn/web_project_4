@@ -2,12 +2,18 @@
   position: absolute;
   height: 26px;
   left: 91.69%;
-  right: 9.18%;
   top: -34px;
   transform: rotate(-45deg);
   border: none;
   padding: 0;
-  background: transparent;
+  background-image: url(../../../../images/add.svg);
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  background-size: 26px;
+  width: 100%;
+  max-width: 26px;
 }
 
 .popup__btn_type_close:hover,
@@ -21,7 +27,8 @@
   .popup__btn_type_close {
     height: 40px;
     left: 100%;
-    right: 30.73%;
     top: -42px;
+    background-size: 40px;
+    max-width: 40px;
   }
 }

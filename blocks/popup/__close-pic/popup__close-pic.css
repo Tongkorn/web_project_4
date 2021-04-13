@@ -1,8 +1,0 @@
-.popup__close-pic {
-    min-width: 26px;
-}
-@media screen and (min-width: 1280px) {
-    .popup__close-pic {
-        min-width: 40px;
-    }
-}

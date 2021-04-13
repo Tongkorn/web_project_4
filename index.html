@@ -12,7 +12,7 @@
 <body class="root">
   <div class="root__container">
     <header class="header">
-      <img src="./images/logo.svg" alt="logo" class="header__logo">
+      <div class="header__logo">
     </header>
     <main class="content">
       <section class="profile">
@@ -23,74 +23,72 @@
               <h1 class="profile__name">Jacques Cousteau</h1>
               <p class="profile__job">Explorer</p>
             </div>
-            <div id="profile-edit-btn" class="profile__edit-btn popup-opened">
-            </div>
+            <button type="click" class="profile__edit-btn">
+            </button>
           </div>
         </div>
-        <div class="profile__add-btn">
-          <img src="./images/add.svg" alt="add">
-        </div>
+        <button type="submit" class="profile__add-btn">
+        </button>
       </section>
       <section class="cards">
-        <div class="card">
+        <article class="card">
           <img src="./images/Yosemite-valley.svg" alt="Yosemite Valley" class="card__pic">
           <div class="card__content">
-            <p class="card__title">Yosemite Valley </p>
-            <img src="./images/heart.svg" alt="Like" class="card__like">
+            <h2 class="card__title">Yosemite Valley </h2>
+            <button type="button" class="card__like-btn">
           </div>
-        </div>
-        <div class="card">
+        </article>
+        <article class="card">
           <img src="./images/lake-louise.svg" alt="Lake Louise" class="card__pic">
           <div class="card__content">
-            <p class="card__title">Lake Louise </p>
-            <img src="./images/heart.svg" alt="Like" class="card__like">
+            <h2 class="card__title">Lake Louise </h2>
+            <button type="button" class="card__like-btn">
           </div>
-        </div>
-        <div class="card">
+        </article>
+        <article class="card">
           <img src="./images/bald-mountains.svg" alt="Bald Mountains" class="card__pic">
           <div class="card__content">
-            <p class="card__title">Bald Mountains </p>
-            <img src="./images/heart.svg" alt="Like" class="card__like">
+            <h2 class="card__title">Bald Mountains</h2>
+            <button type="button" class="card__like-btn">
           </div>
-        </div>
-        <div class="card">
+        </article>
+        <article class="card">
           <img src="./images/latemar.svg" alt="Latemar" class="card__pic">
           <div class="card__content">
-            <p class="card__title">Latemar </p>
-            <img src="./images/heart.svg" alt="Like" class="card__like">
+            <h2 class="card__title">Latemar </h2>
+            <button type="button" class="card__like-btn">
           </div>
-        </div>
-        <div class="card">
+        </article>
+        <article class="card">
           <img src="./images/vanoise-national-park.svg" alt="Vanoise National Park" class="card__pic">
           <div class="card__content">
-            <p class="card__title">Vanoise National Park
-            </p>
-            <img src="./images/heart.svg" alt="Like" class="card__like">
+            <h2 class="card__title">Vanoise National Park
+            </h2>
+            <button type="button" class="card__like-btn">
           </div>
-        </div>
-        <div class="card">
+        </article>
+        <article class="card">
           <img src="./images/lago-di-braies.svg" alt="Lago Di Braies" class="card__pic">
           <div class="card__content">
-            <p class="card__title">Lago di Braies
-            </p>
-            <img src="./images/heart.svg" alt="Like" class="card__like">
+            <h2 class="card__title">Lago di Braies
+            </h2>
+            <button type="button" class="card__like-btn">
           </div>
-        </div>
+        </article>
       </section>
-      <div class="popup popup_opened">
-        <div id="popupEditProfile" class="popup__edit-profile">
-          <h2 class="popup__title">Edit profile</h2>
-          <input class="popup__input popup__input_type_name" type="text" placeholder="Name">
-          <input class="popup__input popup__input_type_job" type="text" placeholder="Job">
-          <button class="popup__btn popup__btn_type_save">Save</button>
-          <button class="popup__btn popup__btn_type_close"><img src="./images/add.svg" alt="close"
-              class="popup__close-pic"></button>
-        </div>
-      </div>
     </main>
     <footer class="footer">&copy; 2021 Around The U.S.</footer>
+    <div class="popup">
+      <form name="form-edit-profile" method="post" class="popup__edit-profile">
+        <h3 class="popup__title">Edit profile</h3>
+        <input type="text" name="name" class="popup__input popup__input_type_name" type="text" placeholder="Name">
+        <input type="text" name="aboutme" class="popup__input popup__input_type_job" type="text" placeholder="About me">
+        <button type="submit" class="popup__btn popup__btn_type_save">Save</button>
+        <button type="button" class="popup__btn popup__btn_type_close"></button>
+      </form>
+    </div>
   </div>
-  <script src="script.js"></script>
+  <script src="blocks/root/script.js"></script>
 </body>
 
 </html>
