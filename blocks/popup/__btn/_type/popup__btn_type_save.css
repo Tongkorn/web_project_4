@@ -8,6 +8,7 @@
   font-size: 14px;
   line-height: 17px;
 }
+
 .popup__btn_type_save:hover,
 .popup__btn_type_save:focus {
   opacity: 0.8;
@@ -19,5 +20,7 @@
   .popup__btn_type_save {
     font-size: 18px;
     line-height: 22px;
+    padding: 13.66px 0 18.49px;
+    margin-top: 48px;
   }
 }

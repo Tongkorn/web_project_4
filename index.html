@@ -23,11 +23,11 @@
               <h1 class="profile__name">Jacques Cousteau</h1>
               <p class="profile__job">Explorer</p>
             </div>
-            <button type="click" class="profile__edit-btn">
+            <button type="button" class="profile__edit-btn" aria-label="edit-name">
             </button>
           </div>
         </div>
-        <button type="submit" class="profile__add-btn">
+        <button type="button" class="profile__add-btn" aria-label="add-profile">
         </button>
       </section>
       <section class="cards">
@@ -35,14 +35,14 @@
           <img src="./images/Yosemite-valley.svg" alt="Yosemite Valley" class="card__pic">
           <div class="card__content">
             <h2 class="card__title">Yosemite Valley </h2>
-            <button type="button" class="card__like-btn">
+            <button type="button" class="card__like-btn " aria-label="like">
           </div>
         </article>
         <article class="card">
           <img src="./images/lake-louise.svg" alt="Lake Louise" class="card__pic">
           <div class="card__content">
             <h2 class="card__title">Lake Louise </h2>
-            <button type="button" class="card__like-btn">
+            <button type="button" class="card__like-btn" aria-label="like">
           </div>
         </article>
         <article class="card">
@@ -56,7 +56,7 @@
           <img src="./images/latemar.svg" alt="Latemar" class="card__pic">
           <div class="card__content">
             <h2 class="card__title">Latemar </h2>
-            <button type="button" class="card__like-btn">
+            <button type="button" class="card__like-btn" aria-label="like">
           </div>
         </article>
         <article class="card">
@@ -64,7 +64,7 @@
           <div class="card__content">
             <h2 class="card__title">Vanoise National Park
             </h2>
-            <button type="button" class="card__like-btn">
+            <button type="button" class="card__like-btn" aria-label="like">
           </div>
         </article>
         <article class="card">
@@ -72,7 +72,7 @@
           <div class="card__content">
             <h2 class="card__title">Lago di Braies
             </h2>
-            <button type="button" class="card__like-btn">
+            <button type="button" class="card__like-btn" aria-label="like">
           </div>
         </article>
       </section>
@@ -83,8 +83,8 @@
         <h3 class="popup__title">Edit profile</h3>
         <input type="text" name="name" class="popup__input popup__input_type_name" type="text" placeholder="Name">
         <input type="text" name="aboutme" class="popup__input popup__input_type_job" type="text" placeholder="About me">
-        <button type="submit" class="popup__btn popup__btn_type_save">Save</button>
-        <button type="button" class="popup__btn popup__btn_type_close"></button>
+        <button type="submit" class="popup__btn popup__btn_type_save" aria-label="save">Save</button>
+        <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
       </form>
     </div>
   </div>
