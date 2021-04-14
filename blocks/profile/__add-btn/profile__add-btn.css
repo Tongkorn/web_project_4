@@ -10,12 +10,15 @@
   background-position: center;
   background-size: auto;
   background-color: transparent;
+  transition: opacity 0.3s ease-in-out;
 }
 
-.profile__add-btn:hover,
-.profile__add-btn:focus {
+.profile__add-btn:hover {
   opacity: 0.6;
   cursor: pointer;
+}
+
+.profile__add-btn:focus {
   outline: none;
 }
 
