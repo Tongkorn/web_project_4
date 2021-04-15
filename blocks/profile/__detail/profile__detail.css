@@ -2,4 +2,11 @@
   display: flex;
   align-items: baseline;
   margin-right: -30px;
+  max-width: 320px;
+}
+
+@media screen and (min-width: 1280px) {
+  .profile__detail {
+    max-width: 525px;
+  }
 }

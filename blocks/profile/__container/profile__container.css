@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: calc(100% - 38px);
 }
 @media screen and (min-width: 1280px) {
   .profile__container {

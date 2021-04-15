@@ -1,4 +1,3 @@
-let content = document.querySelector('.content');
 let profile = document.querySelector('.profile')
 let openEditProfileBtn = profile.querySelector('.profile__edit-btn')
 // let openAddProfileBtn = profile.querySelector('.profile__add-btn')
@@ -11,14 +10,13 @@ let formElement = popup.querySelector('.popup__edit-profile');
 let nameInput = popup.querySelector('.popup__input_type_name')
 let jobInput = popup.querySelector('.popup__input_type_job')
 let closeEditProfileBtn = popup.querySelector('.popup__btn_type_close');
-let heartElements = document.querySelectorAll('.card__like-btn');
+// let heartElements = document.querySelectorAll('.card__like-btn');
 
 function openEditProfilePopup() {
   popup.classList.add('popup_opened');
-  let popupOpened = popup.classList.contains('popup_opened');
-  if (popupOpened) {
-    nameInput.value = profileTitle.textContent;;
-    jobInput.value = profileSubtitle.textContent;;
+  if (popup.classList.contains('popup_opened')) {
+    nameInput.value = profileTitle.textContent;
+    jobInput.value = profileSubtitle.textContent;
   }
 }
 
@@ -33,9 +31,9 @@ function handleFormSubmit(evt) {
   popup.classList.remove('popup_opened');
 }
 
-function fillHeart(evt) {
-  evt.target.classList.toggle('card__like_active');
-}
+// function fillHeart(evt) {
+//   evt.target.classList.toggle('card__like_active');
+// }
 
 // function openAddProfilePopup() {
 //     popup.classList.toggle('popup_opened');
@@ -53,9 +51,9 @@ openEditProfileBtn.addEventListener('click', openEditProfilePopup)
 closeEditProfileBtn.addEventListener('click', closeEditProfilePopup)
 formElement.addEventListener('submit', handleFormSubmit)
 
-for (heart of heartElements) {
-  heart.addEventListener('click', fillHeart, false);
-}
+// for (heart of heartElements) {
+//   heart.addEventListener('click', fillHeart, false);
+// }
 
 // openAddProfileBtn.addEventListener('click', openAddProfilePopup)
 // closeAddProfileBtn.addEventListener('click', openAddProfilePopup)
