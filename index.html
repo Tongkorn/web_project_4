@@ -31,63 +31,37 @@
         </button>
       </section>
       <section class="cards">
-        <article class="card">
-          <img src="./images/Yosemite-valley.svg" alt="Yosemite Valley" class="card__pic">
-          <div class="card__content">
-            <h2 class="card__title">Yosemite Valley </h2>
-            <button type="button" class="card__like-btn " aria-label="like"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img src="./images/lake-louise.svg" alt="Lake Louise" class="card__pic">
-          <div class="card__content">
-            <h2 class="card__title">Lake Louise </h2>
-            <button type="button" class="card__like-btn" aria-label="like"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img src="./images/bald-mountains.svg" alt="Bald Mountains" class="card__pic">
-          <div class="card__content">
-            <h2 class="card__title">Bald Mountains</h2>
-            <button type="button" class="card__like-btn"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img src="./images/latemar.svg" alt="Latemar" class="card__pic">
-          <div class="card__content">
-            <h2 class="card__title">Latemar </h2>
-            <button type="button" class="card__like-btn" aria-label="like"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img src="./images/vanoise-national-park.svg" alt="Vanoise National Park" class="card__pic">
-          <div class="card__content">
-            <h2 class="card__title">Vanoise National Park
-            </h2>
-            <button type="button" class="card__like-btn" aria-label="like"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img src="./images/lago-di-braies.svg" alt="Lago Di Braies" class="card__pic">
-          <div class="card__content">
-            <h2 class="card__title">Lago di Braies
-            </h2>
-            <button type="button" class="card__like-btn" aria-label="like"></button>
-          </div>
-        </article>
       </section>
     </main>
     <footer class="footer">&copy; 2021 Around The U.S.</footer>
     <div class="popup">
       <form name="form-edit-profile" method="post" class="popup__edit-profile">
-        <h3 class="popup__title">Edit profile</h3>
+        <h3 class="popup__title"></h3>
         <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Name">
         <input type="text" name="aboutme" class="popup__input popup__input_type_job" placeholder="About me">
-        <button type="submit" class="popup__btn popup__btn_type_save" aria-label="save">Save</button>
+        <button type="submit" class="popup__btn popup__btn_type_save" aria-label="save"></button>
         <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
       </form>
     </div>
   </div>
+  <template id="card-template">
+    <article class="card">
+      <div class="card__pic"></div>
+      <button class="card__delete"></button>
+      <div class="card__content">
+        <h2 class="card__title"></h2>
+        <button type="button" class="card__like-btn" aria-label="like"></button>
+      </div>
+    </article>
+  </template>
+  <template id="popup-card-img-template">
+    <div class="popup__card">
+      <img src="https://picsum.photos/300" alt="" class="popup__img">
+      <p class="popup__img-caption">image name</p>
+      <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
+      <!-- <button type="button" class="popup__btn popup__img-btn_type_close" aria-label="close"></button> -->
+    </div>
+  </template>
   <script src="scripts/script.js"></script>
 </body>
 

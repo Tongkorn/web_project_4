@@ -1,4 +1,13 @@
 .card__pic {
-    width: 100%;
-    box-sizing: border-box;
+  width: 100%;
+  min-height: 282px;
+  max-height: 282px;
+  box-sizing: border-box;
+  border-radius: 10px 10px 0 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
 }
+
+
