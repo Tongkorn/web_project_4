@@ -31,17 +31,12 @@
         </button>
       </section>
       <section class="cards">
+
       </section>
     </main>
     <footer class="footer">&copy; 2021 Around The U.S.</footer>
     <div class="popup">
-      <form name="form-edit-profile" method="post" class="popup__edit-profile">
-        <h3 class="popup__title"></h3>
-        <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Name">
-        <input type="text" name="aboutme" class="popup__input popup__input_type_job" placeholder="About me">
-        <button type="submit" class="popup__btn popup__btn_type_save" aria-label="save"></button>
-        <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
-      </form>
+
     </div>
   </div>
   <template id="card-template">
@@ -55,12 +50,20 @@
     </article>
   </template>
   <template id="popup-card-img-template">
-    <div class="popup__card">
-      <img src="https://picsum.photos/300" alt="" class="popup__img">
-      <p class="popup__img-caption">image name</p>
+    <figure class="popup__card">
+      <div class="popup__img"></div>
+      <figcaption class="popup__img-caption">Untitled image</figcaption>
       <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
-      <!-- <button type="button" class="popup__btn popup__img-btn_type_close" aria-label="close"></button> -->
-    </div>
+    </figure>
+  </template>
+  <template id="popup-edit-profile-template">
+    <form name="form-edit-profile" method="post" class="popup__edit-profile">
+      <h3 class="popup__title"></h3>
+      <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Name">
+      <input type="text" name="aboutme" class="popup__input popup__input_type_job" placeholder="About me">
+      <button type="submit" class="popup__btn popup__btn_type_save" aria-label="save"></button>
+      <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
+    </form>
   </template>
   <script src="scripts/script.js"></script>
 </body>
