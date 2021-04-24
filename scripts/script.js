@@ -58,10 +58,17 @@ function addCards(cards, initialCardsOrder = false) {
   })
 }
 
+function openPopup(element) {
+  popup.append(element);
+  element.querySelector(".popup__btn_type_close").addEventListener('click', closeEditProfilePopup);
+  popup.classList.toggle('popup_opened');
+}
+
 function openExpandImage(e) {
   e.preventDefault()
   let popupExpandImageElement = popupCardImgTemplate.querySelector(".popup__card").cloneNode(true);
   popupExpandImageElement.querySelector(".popup__img").style.backgroundImage = e.target.style.backgroundImage;
+  popupExpandImageElement.querySelector(".popup__img-caption").textContent = (e.target.parentElement).querySelector(".card__title").textContent
   openPopup(popupExpandImageElement)
 }
 
@@ -129,11 +136,6 @@ function handleFormSubmit(evt) {
   popup.classList.remove('popup_opened');
 }
 
-function openPopup(element) {
-  popup.append(element);
-  element.querySelector(".popup__btn_type_close").addEventListener('click', closeEditProfilePopup);
-  popup.classList.toggle('popup_opened');
-}
 
 addCards(initialCards, true);
 
