@@ -1,6 +1,6 @@
 .card__delete {
   padding: 0;
-  background-image: url(/images/trash.svg);
+  background-image: url(/images/Trash.png);
   box-sizing: border-box;
   background-repeat: no-repeat;
   background-position: center;
@@ -9,6 +9,7 @@
   height: 19.3px;
   border: none;
   position: absolute;
+  z-index: 3;
   top: 18px;
   right: 15px;
   transition: opacity 0.3s ease-in-out;
