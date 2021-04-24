@@ -1,10 +1,10 @@
 .card__delete {
   padding: 0;
-  background-image: url(/images/Trash.png);
-  box-sizing: border-box;
+  /* background-image: url(/images/Trash.png); */
+  /* box-sizing: border-box;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: transparent;
+  background-color: transparent; */
   width: 18px;
   height: 19.3px;
   border: none;

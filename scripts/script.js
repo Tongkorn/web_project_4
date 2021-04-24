@@ -47,7 +47,7 @@ const initialCards = [
 function addCards(cards, initialCardsOrder = false) {
   cards.forEach((card) => {
     const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-    cardElement.querySelector(".card__pic").style.backgroundImage = `url(${card.link})`;
+    // cardElement.querySelector(".card__pic").style.backgroundImage = `url(${card.link})`;
     cardElement.querySelector(".card__pic").addEventListener('click', openExpandImage);
     cardElement.querySelector('.card__title').textContent = card.name;
     cardElement.querySelector(".card__like-btn").addEventListener('click', fillHeart);
