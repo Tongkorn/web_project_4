@@ -52,7 +52,6 @@ function openPopup(popupElement) {
 }
 
 function closePopup(popupElement) {
-  console.log(popupElement)
   popupElement.length > 1
     ? popupElement.forEach(item => { item.classList.remove('popup_opened') })
     : popupElement.classList.remove('popup_opened')
@@ -79,7 +78,6 @@ function handleFormEditSubmit(popupElement) {
 }
 
 function handleFormAddImageSubmit(popupElement) {
-  console.log(popupElement)
   saveAddImageElement.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopImmediatePropagation();
