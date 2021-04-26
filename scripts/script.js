@@ -4,11 +4,11 @@ const addCardBtnElement = profileElement.querySelector('.profile__add-btn')
 const profileTitleElement = profileElement.querySelector('.profile__name');
 const profileSubtitleElement = profileElement.querySelector('.profile__job');
 const popupElementList = document.querySelectorAll('.popup');
-const popupFormEditElement = document.querySelector('.popup__form_edit')
-const popupFormAddElement = document.querySelector('.popup__form_add')
-const popupViewImageElement = document.querySelector('.popup__view_image')
-const saveEditProfileElement = document.querySelector(".save__edit-profile")
-const saveAddImageElement = document.querySelector(".save__add-image")
+const popupFormEditElement = document.querySelector('[data-form= "popup__form_edit"]')
+const popupFormAddElement = document.querySelector('[data-form= "popup__form_add"]')
+const popupViewImageElement = document.querySelector('[data-form="popup__view_image"]')
+const saveEditProfileElement = document.querySelector('[data-form="save__edit-profile"]')
+const saveAddImageElement = document.querySelector('[data-form="save__add-image"]')
 const closePopupBtnElementList = document.querySelectorAll('.popup__btn_type_close');
 const cardsContainerElement = document.querySelector(".cards");
 const cardTemplate = document.querySelector("#card-template").content;
