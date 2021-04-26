@@ -35,14 +35,36 @@
       </section>
     </main>
     <footer class="footer">&copy; 2021 Around The U.S.</footer>
-    <div class="popup">
-
+    <div class="popup popup__form_edit">
+      <form name="form-edit-profile" method="post" class="popup__edit-profile">
+        <h3 class="popup__title">Edit Profile</h3>
+        <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Name" required>
+        <input type="text" name="aboutme" class="popup__input popup__input_type_job" placeholder="About me" required>
+        <button type="submit" class="popup__btn popup__btn_type_save save__edit-profile" aria-label="save">Save</button>
+        <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
+      </form>
+    </div>
+    <div class="popup popup__form_add">
+      <form name="form-edit-profile" method="post" class="popup__edit-profile">
+        <h3 class="popup__title">New place</h3>
+        <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Title" required>
+        <input type="text" name="aboutme" class="popup__input popup__input_type_job" placeholder="Image link" required>
+        <button type="submit" class="popup__btn popup__btn_type_save save__add-image" aria-label="save">Create</button>
+        <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
+      </form>
+    </div>
+    <div class="popup popup__view_image">
+      <figure class="popup__card">
+        <div class="popup__img"></div>
+        <figcaption class="popup__img-caption">Untitled image</figcaption>
+        <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
+      </figure>
     </div>
   </div>
+
   <template id="card-template">
     <article class="card">
       <div class="card__pic"></div>
-      <!-- <img src="" class="card__pic" alt=""> -->
       <button type="button" class="card__delete" aria-label="delete-card"></button>
       <div class="card__content">
         <h2 class="card__title"></h2>
@@ -50,22 +72,23 @@
       </div>
     </article>
   </template>
-  <template id="popup-card-img-template">
+  <!-- <template id="popup-card-img-template">
     <figure class="popup__card">
       <div class="popup__img"></div>
       <figcaption class="popup__img-caption">Untitled image</figcaption>
       <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
     </figure>
-  </template>
-  <template id="popup-edit-profile-template">
+  </template> -->
+  <!-- <template id="popup-edit-profile-template">
     <form name="form-edit-profile" method="post" class="popup__edit-profile">
       <h3 class="popup__title"></h3>
-      <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Name">
-      <input type="text" name="aboutme" class="popup__input popup__input_type_job" placeholder="About me">
+      <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Name" required>
+      <input type="text" name="aboutme" class="popup__input popup__input_type_job" placeholder="About me" required>
       <button type="submit" class="popup__btn popup__btn_type_save" aria-label="save"></button>
       <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
     </form>
-  </template>
+  </template> -->
+  <script src="data/data-card.js"></script>
   <script src="scripts/script.js"></script>
 </body>
 

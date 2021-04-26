@@ -18,7 +18,6 @@
   - 1280px
 * Links effect on hover
 * Like buttons effect on click
-* Simple form validation with warning text
 * Use "Inter" Fonts
 
 **Technology**
@@ -33,10 +32,10 @@
 
 **Plan on Improving the project**
 
-- [ ] New feature - Add Profile
+- [x] New feature - Edit Profile
 - [ ] New feature - Add Card
-- [ ] New feature - Delete Profile 
-- [ ] New feature - Delete Card 
+- [ ] New feature - Delete Card
+- [ ] New feature - Expand Card Image
 - [ ] Store in server
 
 **GitHub Pages** :+1:
