@@ -1,11 +1,4 @@
 .card__like_active {
-    background-image: url(../../../../images/heart-filled.svg);
-    box-sizing: border-box;
-    background-repeat: no-repeat;
-    background-position: center;
-    transition: opacity 0.3s ease-in-out;
+  background-image: url(../../../../images/heart-filled.svg);
 }
 
-.card__like_active:hover{
-    opacity: 0.5;
-}
