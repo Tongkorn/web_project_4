@@ -40,22 +40,22 @@
         <h3 class="popup__title">Edit Profile</h3>
         <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Name" required>
         <input type="text" name="aboutme" class="popup__input popup__input_type_job" placeholder="About me" required>
-        <button type="submit" class="popup__btn popup__btn_type_save" data-form="save__edit-profile"
+        <button type="submit" class="popup__btn popup__btn_type_save"
           aria-label="save">Save</button>
         <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
       </form>
     </div>
     <div class="popup" data-form="popup__form_add">
-      <form name="form-edit-profile" method="post" class="popup__edit-profile">
+      <form name="form-add-card" method="post" class="popup__add-card">
         <h3 class="popup__title">New place</h3>
         <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Title" required>
-        <input type="text" name="aboutme" class="popup__input popup__input_type_job" placeholder="Image link" required>
-        <button type="submit" class="popup__btn popup__btn_type_save" data-form="save__add-image"
+        <input type="text" name="aboutme" class="popup__input popup__input_type_link" placeholder="Image link" required>
+        <button type="submit" class="popup__btn popup__btn_type_save"
           aria-label="save">Create</button>
         <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
       </form>
     </div>
-    <div class="popup" data-form="popup__view_image">
+    <div class="popup" data-image="popup__view_image">
       <figure class="popup__card">
         <div class="popup__img"></div>
         <figcaption class="popup__img-caption">Untitled image</figcaption>

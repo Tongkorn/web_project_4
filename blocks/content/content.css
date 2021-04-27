@@ -1,5 +1,7 @@
 .content {
-    padding-top: max(42px, 4.8%);
-    max-width: 880px;
-    margin: 0 auto;
+  padding-top: max(42px, 4.8%);
+  max-width: 880px;
+  margin: 0 auto;
+  flex-shrink: 0;
+  flex-grow: 1;
 }
