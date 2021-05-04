@@ -38,10 +38,10 @@
     <div class="popup" data-form="popup__form_edit">
       <form name="form-edit-profile" method="post" class="popup__form popup__edit-profile">
         <h3 class="popup__title">Edit Profile</h3>
-        <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Name" required>
-        <span class="popup__error">Please fill out this field.</span>
-        <input type="text" name="aboutme" class="popup__input popup__input_type_job" placeholder="About me" required>
-        <span class="popup__error">Please fill out this field.</span>
+        <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Name" id="name-input" required>
+        <span class="popup__error name-input-error">Please fill out this field.</span>
+        <input type="text" name="aboutme" class="popup__input popup__input_type_job" placeholder="About me" id="job-input" required>
+        <span class="popup__error job-input-error">Please fill out this field.</span>
         <button type="submit" class="popup__btn popup__btn_type_save"
           aria-label="save">Save</button>
         <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
@@ -50,10 +50,10 @@
     <div class="popup" data-form="popup__form_add">
       <form name="form-add-card" method="post" class="popup__form  popup__add-card">
         <h3 class="popup__title">New place</h3>
-        <input type="text" name="name" class="popup__input popup__input_type_img-title" placeholder="Title" required>
-        <span class="popup__error">Please fill out this field.</span>
-        <input type="text" name="aboutme" class="popup__input popup__input_type_link" placeholder="Image link" required>
-        <span class="popup__error">Please enter a web address.</span>
+        <input type="text" name="name" class="popup__input popup__input_type_img-title" placeholder="Title" id="img-input" required>
+        <span class="popup__error img-input-error">Please fill out this field.</span>
+        <input type="text" name="aboutme" class="popup__input popup__input_type_link" placeholder="Image link" id="link-input" required>
+        <span class="popup__error link-input-error">Please enter a web address.</span>
         <button type="submit" class="popup__btn popup__btn_type_save"
           aria-label="save">Create</button>
         <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
