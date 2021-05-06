@@ -22,9 +22,8 @@ function createNewCard(newCard) {
   cardElement.querySelector('.card__title').textContent = newCard.name;
   cardElement.querySelector(".card__pic").addEventListener('click', (e) => {
     openExpandImage(e)
-    setEventOnclosePopup(e.target)
-  }
-  )
+    setEventClickOverlayClosePopup(e.target)
+  })
   cardElement.querySelector(".card__like-btn").addEventListener('click', fillHeart);
   cardElement.querySelector(".card__delete").addEventListener('click', removeCard);
   return cardElement
@@ -63,7 +62,7 @@ function closePopup(popupElement) {
   }
 }
 
-function resetPopupFormInput(popupElement) {
+function resetInputError(popupElement) {
   const formElement = popupElement.closest(`${settingObj.formSelector}`)
   if (!!formElement) {
     const errorElementList = formElement.querySelectorAll(`.${settingObj.errorClass}`)
@@ -129,20 +128,17 @@ function checkInputValidity(formElement, inputElement) {
 }
 
 function hasInvalidInput(inputList) {
-    return inputList.some(inputElement => {
-      return !(inputElement.validity.valid)
-    })
+  return inputList.some(inputElement => {
+    return !(inputElement.validity.valid)
+  })
 }
 
 function toggleBtnState(inputList, buttonElement) {
-  const initialInputValueElementList = document.querySelectorAll('.popup__input')
-  initialInputValueElementList.forEach(inputElement => {
-    if (hasInvalidInput(inputList) || (inputElement.value === profileTitleElement.textContent || inputElement.value === profileSubtitleElement.textContent)) {
-      buttonElement.classList.add(`${settingObj.inactiveButtonClass}`)
-    } else {
-      buttonElement.classList.remove(`${settingObj.inactiveButtonClass}`)
-    }
-  })
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add(`${settingObj.inactiveButtonClass}`)
+  } else {
+    buttonElement.classList.remove(`${settingObj.inactiveButtonClass}`)
+  }
 }
 
 function settingForm(e) {
@@ -152,12 +148,12 @@ function settingForm(e) {
   }
   if (e.target.classList.contains("popup__add-card")) {
     handleFormAddSubmit()
-    resetPopupFormInput(e.currentTarget)
+    resetInputError(e.currentTarget)
     closePopup(popupFormAddElement)
   }
 }
 
-function setEventOnclosePopup(formElement) {
+function setEventClickOverlayClosePopup(formElement) {
   if (formElement.classList.contains("card__pic")) {
     popupImg.closest('.popup_opened').addEventListener('click', (e) => {
       if (e.target === popupImg.closest('.popup_opened')) {
@@ -181,15 +177,16 @@ function setEventListeners(formElement) {
   toggleBtnState(inputList, buttonElement)
 
   editProfileBtnElement.addEventListener('click', () => {
-    inputPopupFormEditContent()
     openPopup(popupFormEditElement);
-    setEventOnclosePopup(formElement)
+    inputPopupFormEditContent()
+    toggleBtnState(inputList, buttonElement)
+    setEventClickOverlayClosePopup(formElement)
   });
 
   addCardBtnElement.addEventListener('click', () => {
     openPopup(popupFormAddElement);
     toggleBtnState(inputList, buttonElement)
-    setEventOnclosePopup(formElement)
+    setEventClickOverlayClosePopup(formElement)
   })
 
   inputList.forEach(inputElement => {
@@ -201,7 +198,7 @@ function setEventListeners(formElement) {
 
   closeBtnList.forEach(closeBtn => {
     closeBtn.addEventListener('click', () => {
-      resetPopupFormInput(closeBtn)
+      resetInputError(closeBtn)
       closePopup(formElement.querySelector('.popup__btn_type_close'));
     });
   })
