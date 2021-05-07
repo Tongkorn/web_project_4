@@ -4,10 +4,11 @@
   max-height: 282px;
   box-sizing: border-box;
   border-radius: 10px 10px 0 0;
-  background-image: url(../../../images/Yosemite-valley.svg);
+  /* background-image: url(../../../images/Yosemite-valley.svg);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
+  object-fit: cover;
   cursor: pointer;
 }
 

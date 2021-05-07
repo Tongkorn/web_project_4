@@ -22,7 +22,9 @@ const submitButtonElement = document.querySelector(`${validationConfig.submitBut
 function createNewCard(newCard) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const cardPicElement = cardElement.querySelector(".card__pic");
-  cardPicElement.style.backgroundImage = `url(${newCard.link})`;
+  console.log(cardPicElement)
+  cardPicElement.src = newCard.link;
+  // cardPicElement.style.backgroundImage = `url(${newCard.link})`;
   cardElement.querySelector('.card__title').textContent = newCard.name;
   cardPicElement.addEventListener('click', (e) => {
     openExpandImage(e)
@@ -43,7 +45,8 @@ function renderInitialCards(cards, insertBefore = true) {
 
 function openExpandImage(e) {
   openPopup(popupViewImageElement)
-  popupImg.style.backgroundImage = e.target.style.backgroundImage;
+  // popupImg.style.backgroundImage = e.target.style.backgroundImage;
+  popupImg.src = e.target.src
   popupImgCaption.textContent = (e.target.parentElement).querySelector(".card__title").textContent
   popupImg.alt = (e.target.parentElement).querySelector(".card__title").textContent
 }
@@ -113,7 +116,6 @@ editProfileBtnElement.addEventListener('click', () => {
   inputPopupFormEditContent()
   toggleBtnState(inputElementList, submitButtonElement)
   enableValidation(validationConfig);
-  setEventCloseOnclickOverlay()
 });
 
 addCardBtnElement.addEventListener('click', () => {
@@ -121,7 +123,7 @@ addCardBtnElement.addEventListener('click', () => {
   resetInputError(popupFormAddElement.querySelector('form'))
   toggleBtnState(inputElementList, submitButtonElement)
   enableValidation(validationConfig);
-  setEventCloseOnclickOverlay()
 })
 
 renderInitialCards(initialCards, false);
+setEventCloseOnclickOverlay()
