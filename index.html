@@ -36,7 +36,7 @@
     </main>
     <footer class="footer">&copy; 2021 Around The U.S.</footer>
     <div class="popup" data-form="popup__form_edit">
-      <form name="form-edit-profile" method="post" class="popup__form popup__edit-profile">
+      <form name="form-edit-profile" method="post" class="popup__form popup__edit-profile" novalidate>
         <h3 class="popup__title">Edit Profile</h3>
         <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Name" id="name-input"
           required>
@@ -49,7 +49,7 @@
       </form>
     </div>
     <div class="popup" data-form="popup__form_add">
-      <form name="form-add-card" method="post" class="popup__form  popup__add-card">
+      <form name="form-add-card" method="post" class="popup__form  popup__add-card" novalidate>
         <h3 class="popup__title">New place</h3>
         <input type="text" name="name" class="popup__input popup__input_type_img-title" placeholder="Title"
           id="img-input" required>
@@ -63,7 +63,7 @@
     </div>
     <div class="popup" data-image="popup__view_image">
       <figure class="popup__card">
-        <img src="https://picsum.photos/400" class="popup__img" alt="untitled image">
+        <img src="" class="popup__img" alt="untitled image">
         <figcaption class="popup__img-caption">Untitled image</figcaption>
         <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
       </figure>

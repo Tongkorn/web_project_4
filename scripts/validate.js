@@ -60,51 +60,35 @@ function hasInvalidInput(inputList) {
 }
 
 function toggleBtnState(inputList, buttonElement) {
+
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(`${validationConfig.inactiveButtonClass}`)
     buttonElement.setAttribute('disabled', true)
-  } else {
+  }
+  else {
     buttonElement.classList.remove(`${validationConfig.inactiveButtonClass}`)
     buttonElement.removeAttribute('disabled')
   }
-}
-
-function setEventListeners(formElement) {
-  const inputList = Array.from(formElement.querySelectorAll(`${validationConfig.inputSelector}`))
-  const buttonElement = formElement.querySelector(`${validationConfig.submitButtonSelector}`)
-  toggleBtnState(inputList, buttonElement)
-
-  inputList.forEach(inputElement => {
-    inputElement.addEventListener("input", function () {
-      checkInputValidity(formElement, inputElement)
-      toggleBtnState(inputList, buttonElement)
-    })
-  })
-
-  formElement.querySelector('.popup__btn_type_close').addEventListener('click', (e) => {
-    resetInputError(e.target)
-  });
 }
 
 function enableValidation(validationConfig) {
   const formList = Array.from(document.querySelectorAll(`${validationConfig.formSelector}`));
 
   formList.forEach(formElement => {
+    const inputList = Array.from(formElement.querySelectorAll(`${validationConfig.inputSelector}`))
+    const buttonElement = formElement.querySelector(`${validationConfig.submitButtonSelector}`)
+
+    inputList.forEach(inputElement => {
+      inputElement.addEventListener("input", function () {
+        checkInputValidity(formElement, inputElement)
+        toggleBtnState(inputList, buttonElement)
+      })
+    })
 
     formElement.addEventListener('submit', (e) => {
       e.preventDefault();
       e.stopImmediatePropagation();
-      if (e.target.classList.contains("popup__edit-profile")) {
-        handleFormEditSubmit()
-        closePopup(popupFormEditElement)
-      }
-      if (e.target.classList.contains("popup__add-card")) {
-        handleFormAddSubmit()
-        closePopup(popupFormAddElement)
-      }
-      closePopup(e.currentTarget)
     })
-    setEventListeners(formElement)
   })
 }
 
