@@ -59,7 +59,9 @@ function hasInvalidInput(inputList) {
   })
 }
 
-function toggleBtnState(inputList, buttonElement) {
+function toggleBtnState(popupElement) {
+  const inputList = Array.from(popupElement.querySelectorAll(`${validationConfig.inputSelector}`))
+  const buttonElement = popupElement.querySelector(`${validationConfig.submitButtonSelector}`)
 
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(`${validationConfig.inactiveButtonClass}`)
@@ -71,17 +73,14 @@ function toggleBtnState(inputList, buttonElement) {
   }
 }
 
-function enableValidation(validationConfig) {
-  const formList = Array.from(document.querySelectorAll(`${validationConfig.formSelector}`));
-
+function setEvenListeners(formList) {
   formList.forEach(formElement => {
     const inputList = Array.from(formElement.querySelectorAll(`${validationConfig.inputSelector}`))
-    const buttonElement = formElement.querySelector(`${validationConfig.submitButtonSelector}`)
 
     inputList.forEach(inputElement => {
       inputElement.addEventListener("input", function () {
         checkInputValidity(formElement, inputElement)
-        toggleBtnState(inputList, buttonElement)
+        toggleBtnState(formElement)
       })
     })
 
@@ -90,6 +89,11 @@ function enableValidation(validationConfig) {
       e.stopImmediatePropagation();
     })
   })
+}
+
+function enableValidation(validationConfig) {
+  const formList = Array.from(document.querySelectorAll(`${validationConfig.formSelector}`));
+  setEvenListeners(formList);
 }
 
 

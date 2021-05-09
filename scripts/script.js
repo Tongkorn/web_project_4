@@ -65,11 +65,7 @@ function closeByEsc(e) {
 }
 
 function openPopup(popupElement) {
-  const popupInputs = Array.from(popupElement.querySelectorAll(`${validationConfig.inputSelector}`))
-  const button = popupElement.querySelector(`${validationConfig.submitButtonSelector}`)
-
   popupElement.classList.add('popup_opened')
-  toggleBtnState(popupInputs, button)
   document.addEventListener('keydown', closeByEsc)
 }
 
@@ -116,11 +112,13 @@ function setEventCloseOnclickOverlay() {
 editProfileBtnElement.addEventListener('click', () => {
   resetInputError(formEditElement)
   inputPopupFormEditContent()
+  toggleBtnState(popupFormEditElement)
   openPopup(popupFormEditElement);
 });
 
 addCardBtnElement.addEventListener('click', () => {
   resetInputError(formAddElement)
+  toggleBtnState(popupFormAddElement)
   openPopup(popupFormAddElement);
 })
 
