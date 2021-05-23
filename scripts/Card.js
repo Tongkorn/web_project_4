@@ -1,3 +1,4 @@
+
 // const profileElement = document.querySelector('.profile')
 // const editProfileBtnElement = profileElement.querySelector('.profile__edit-btn')
 // const addCardBtnElement = profileElement.querySelector('.profile__add-btn')
@@ -44,7 +45,7 @@ export function closeByEsc(e) {
 
 export function closePopup(popupElement) {
   popupElement.closest('.popup').classList.remove('popup_opened')
-  // resetInputError(popupElement)
+  _resetInputError(popupElement)
   document.removeEventListener('keydown', closeByEsc)
 }
 

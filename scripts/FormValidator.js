@@ -8,11 +8,11 @@ export class FormValidator {
     this.errorClass = settingObj.errorClass
 
     this.element = formElement
-    // this._resetInputError
+
   }
 
   _resetInputError() {
-    console.log('object')
+    console.log('_resetInputError')
     const formElement = this.element.closest(`${this.formSelector}`)
     if (!!formElement) {
       const errorElementList = formElement.querySelectorAll(`.${this.errorClass}`)
@@ -67,9 +67,9 @@ export class FormValidator {
   }
 
   _toggleBtnState() {
+    console.log('toggleButton')
     const inputList = Array.from(this.element.querySelectorAll(`${this.inputSelector}`))
     const buttonElement = this.element.querySelector(`${this.submitButtonSelector}`)
-
     if (this._hasInvalidInput(inputList)) {
       buttonElement.classList.add(`${this.inactiveButtonClass}`)
       buttonElement.setAttribute('disabled', true)
@@ -81,15 +81,13 @@ export class FormValidator {
   }
 
   _setEvenListeners(formList) {
-    console.log('set event in FormValidator')
+    const self = this;
     formList.forEach(formElement => {
-      console.log(this)
       const inputList = Array.from(formElement.querySelectorAll(`${this.inputSelector}`))
       inputList.forEach(inputElement => {
         inputElement.addEventListener("input", function () {
-          console.log(this)
-          this._checkInputValidity(formElement, inputElement)
-          this._toggleBtnState(formElement)
+          self._checkInputValidity(formElement, inputElement)
+          self._toggleBtnState(formElement)
         })
       })
 

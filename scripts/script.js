@@ -128,6 +128,8 @@ function handleFormAddSubmit() {
 //     })
 //   })
 // }
+const formEditValidator = new FormValidator(validationConfig, popupFormEditElement);
+const formAddValidator = new FormValidator(validationConfig, popupFormAddElement);
 
 editProfileBtnElement.addEventListener('click', () => {
   // resetInputError(formEditElement)
@@ -135,10 +137,8 @@ editProfileBtnElement.addEventListener('click', () => {
   // toggleBtnState(popupFormEditElement)
   // openPopup(popupFormEditElement);
 
-  const formValidator = new FormValidator(validationConfig, popupFormEditElement);
 
   openPopup(popupFormEditElement)
-  formValidator.enableValidation();
 
 });
 
@@ -146,10 +146,8 @@ addCardBtnElement.addEventListener('click', () => {
   // resetInputError(formAddElement)
   // toggleBtnState(popupFormAddElement)
 
-  const formValidator = new FormValidator(validationConfig, popupFormAddElement);
 
   openPopup(popupFormAddElement);
-  formValidator.enableValidation();
 })
 
 formEditElement.addEventListener('submit', (e) => {
@@ -166,6 +164,8 @@ renderInitialCards(initialCards, false);
 // setEventCloseOnclickOverlay();
 // enableValidation(validationConfig)
 
+formEditValidator.enableValidation();
+formAddValidator.enableValidation();
 
 
 
