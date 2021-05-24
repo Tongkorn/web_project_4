@@ -1,3 +1,22 @@
+export const resetInputError = (element) => {
+  const formElement = element.closest(`${validationConfig.formSelector}`)
+  if (!!formElement) {
+    const errorElementList = formElement.querySelectorAll(`.${validationConfig.errorClass}`)
+    const inputErrorElementList = formElement.querySelectorAll(`.${validationConfig.inputErrorClass}`)
+    formElement.reset()
+    if (errorElementList.length > 0) {
+      errorElementList.forEach((error) => {
+        error.classList.remove(`${validationConfig.errorClass}`)
+      })
+    }
+    if (inputErrorElementList.length > 0) {
+      inputErrorElementList.forEach((inputError) => {
+        inputError.classList.remove(`${validationConfig.inputErrorClass}`)
+      })
+    }
+  }
+}
+
 export class FormValidator {
   constructor(settingObj, formElement) {
     this.formSelector = settingObj.formSelector
@@ -11,29 +30,7 @@ export class FormValidator {
 
   }
 
-  _resetInputError() {
-    console.log('_resetInputError')
-    const formElement = this.element.closest(`${this.formSelector}`)
-    if (!!formElement) {
-      const errorElementList = formElement.querySelectorAll(`.${this.errorClass}`)
-      const inputErrorElementList = formElement.querySelectorAll(`.${this.inputErrorClass}`)
-
-      formElement.reset()
-      if (errorElementList.length > 0) {
-        errorElementList.forEach((error) => {
-          error.classList.remove(`${this.errorClass}`)
-        })
-      }
-      if (inputErrorElementList.length > 0) {
-        inputErrorElementList.forEach((inputError) => {
-          inputError.classList.remove(`${this.inputErrorClass}`)
-        })
-      }
-    }
-  }
-
   _showInputError(formElement, inputElement, errorMessage) {
-    console.log('_showInputError')
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
     if (errorElement) {
       inputElement.classList.add(`${this.inputErrorClass}`);
@@ -52,7 +49,6 @@ export class FormValidator {
   }
 
   _checkInputValidity(formElement, inputElement) {
-    console.log('check inputValidity')
     if (!inputElement.validity.valid) {
       this._showInputError(formElement, inputElement, inputElement.validationMessage)
     } else {
@@ -67,7 +63,6 @@ export class FormValidator {
   }
 
   _toggleBtnState() {
-    console.log('toggleButton')
     const inputList = Array.from(this.element.querySelectorAll(`${this.inputSelector}`))
     const buttonElement = this.element.querySelector(`${this.submitButtonSelector}`)
     if (this._hasInvalidInput(inputList)) {
@@ -81,19 +76,20 @@ export class FormValidator {
   }
 
   _setEvenListeners(formList) {
-    const self = this;
+    const _this = this;
     formList.forEach(formElement => {
       const inputList = Array.from(formElement.querySelectorAll(`${this.inputSelector}`))
       inputList.forEach(inputElement => {
         inputElement.addEventListener("input", function () {
-          self._checkInputValidity(formElement, inputElement)
-          self._toggleBtnState(formElement)
+          _this._checkInputValidity(formElement, inputElement)
+          _this._toggleBtnState(formElement)
         })
       })
 
       formElement.addEventListener('submit', (e) => {
         e.preventDefault();
         e.stopImmediatePropagation();
+        resetInputError(e.target)
       })
     })
   }
@@ -101,6 +97,6 @@ export class FormValidator {
   enableValidation() {
     const formList = Array.from(document.querySelectorAll(`${this.formSelector}`));
     this._setEvenListeners(formList);
+    this._toggleBtnState()
   }
-
 }
