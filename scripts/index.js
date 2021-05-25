@@ -1,24 +1,9 @@
-import { Card, openPopup, closePopup } from './Card.js'
+import { Card } from './Card.js'
 import { FormValidator, resetInputError } from './FormValidator.js'
+import { openPopup, closePopup, openCardPreview } from './utils.js'
 
-const profileElement = document.querySelector('.profile')
-const editProfileBtnElement = profileElement.querySelector('.profile__edit-btn')
-const addCardBtnElement = profileElement.querySelector('.profile__add-btn')
-const profileTitleElement = profileElement.querySelector('.profile__name');
-const profileSubtitleElement = profileElement.querySelector('.profile__job');
-const popupFormAddElement = document.querySelector('[data-form="popup__form_add"]')
-const formAddElement = popupFormAddElement.querySelector('form');
-const popupFormEditElement = document.querySelector('[data-form="popup__form_edit"]');
-const formEditElement = popupFormEditElement.querySelector('form');
-const popupInputTypeName = document.querySelector('.popup__input_type_name');
-const popupInputTypeJob = document.querySelector('.popup__input_type_job');
-const popupInputTypeImgTitle = document.querySelector('.popup__input_type_img-title')
-const popupInputTypeLink = document.querySelector('.popup__input_type_link');
-const closeBtnList = Array.from(document.querySelectorAll('.popup__btn_type_close'));
-const cardsContainerElement = document.querySelector(".cards");
-
-const renderCard = (cardData) => {
-  let cardElement = new Card(cardData)
+const createCard = (cardData) => {
+  let cardElement = new Card(cardData, openCardPreview)
   return cardElement = cardElement.generateCard()
 }
 
@@ -38,7 +23,7 @@ const handleFormAddSubmit = () => {
     name: popupInputTypeImgTitle.value,
     link: popupInputTypeLink.value
   }
-  const newCard = renderCard(newImage)
+  const newCard = createCard(newImage)
   cardsContainerElement.prepend(newCard)
   closePopup()
 }
@@ -71,5 +56,5 @@ closeBtnList.forEach(closeBtn => {
   closeBtn.addEventListener('click', closePopup);
 })
 
-const cardList = initialCards.map(card => renderCard(card))
+const cardList = initialCards.map(card => createCard(card))
 cardsContainerElement.append(...cardList)
