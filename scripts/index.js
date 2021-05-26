@@ -1,6 +1,6 @@
 import { Card } from './Card.js'
 import { FormValidator, resetInputError } from './FormValidator.js'
-import { openPopup, closePopup, openCardPreview } from './utils.js'
+import { openPopup, closePopup, openCardPreview } from './popup-utils.js'
 
 const createCard = (cardData) => {
   let cardElement = new Card(cardData, openCardPreview)
@@ -28,8 +28,8 @@ const handleFormAddSubmit = () => {
   closePopup()
 }
 
-const formEditValidator = new FormValidator(validationConfig, popupFormEditElement);
-const formAddValidator = new FormValidator(validationConfig, popupFormAddElement);
+const formEditValidator = new FormValidator(validationConfig, formEditElement);
+const formAddValidator = new FormValidator(validationConfig, formAddElement);
 
 editProfileBtnElement.addEventListener('click', () => {
   resetInputError(formEditElement)
