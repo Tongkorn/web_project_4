@@ -36,6 +36,7 @@
 - [x] New feature - Add Card
 - [x] New feature - Delete Card
 - [x] New feature - Expand Card Image
+- [x] Refactor to OOP
 - [ ] Store in server
 
 **GitHub Pages** :+1:
