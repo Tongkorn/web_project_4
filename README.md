@@ -33,9 +33,9 @@
 **Plan on Improving the project**
 
 - [x] New feature - Edit Profile
-- [ ] New feature - Add Card
-- [ ] New feature - Delete Card
-- [ ] New feature - Expand Card Image
+- [x] New feature - Add Card
+- [x] New feature - Delete Card
+- [x] New feature - Expand Card Image
 - [ ] Store in server
 
 **GitHub Pages** :+1:
