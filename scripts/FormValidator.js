@@ -84,7 +84,6 @@ export class FormValidator {
     this.formElement.addEventListener('submit', (e) => {
       e.preventDefault();
       e.stopImmediatePropagation();
-      resetInputError(e.target)
     })
   }
 

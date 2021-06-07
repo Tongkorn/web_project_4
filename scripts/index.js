@@ -1,9 +1,19 @@
 import { Card } from './Card.js'
 import { FormValidator, resetInputError } from './FormValidator.js'
-import { openPopup, closePopup, openCardPreview } from './popup-utils.js'
+
+import Popup from './Popup.js'
+import PopupWithImage from './PopupWithImage.js'
+import Section from './Section.js'
 
 const createCard = (cardData) => {
-  let cardElement = new Card(cardData, openCardPreview)
+  let cardElement = new Card({
+    cardData,
+    handleCardClick: (event, cardSelector) => {
+      const popupWithImage = new PopupWithImage(cardSelector);
+      popupWithImage.open(event)
+    }
+  }, popupViewImageElement)
+
   return cardElement = cardElement.generateCard()
 }
 
@@ -35,13 +45,17 @@ editProfileBtnElement.addEventListener('click', () => {
   resetInputError(formEditElement)
   inputPopupFormEditContent()
   formEditValidator.enableValidation();
-  openPopup(popupFormEditElement)
+
+  const popup = new Popup(popupFormEditElement);
+  popup.open()
 });
 
 addCardBtnElement.addEventListener('click', () => {
   resetInputError(formAddElement)
   formAddValidator.enableValidation();
-  openPopup(popupFormAddElement);
+
+  const popup = new Popup(popupFormAddElement);
+  popup.open();
 })
 
 formEditElement.addEventListener('submit', () => {
@@ -52,9 +66,12 @@ formAddElement.addEventListener('submit', () => {
   handleFormAddSubmit();
 })
 
-closeBtnList.forEach(closeBtn => {
-  closeBtn.addEventListener('click', closePopup);
-})
+const cardList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = createCard(item)
+    cardList.addItem(card)
+  }
+}, cardsContainerElement)
 
-const cardList = initialCards.map(card => createCard(card))
-cardsContainerElement.append(...cardList)
+cardList.renderItems()
