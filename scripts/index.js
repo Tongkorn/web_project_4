@@ -20,36 +20,23 @@ const createCard = (cardData) => {
   return cardElement = cardElement.generateCard()
 }
 
-
 const userInfo = new UserInfo({ profileTitleElement, profileSubtitleElement })
 const inputPopupFormEditContent = () => {
-
-  //   popupInputTypeName.value = profileTitleElement.textContent
-  //   popupInputTypeJob.value = profileSubtitleElement.textContent
   userInfo.getUserInfo()
 }
 
 const handleFormEditSubmit = (newUserData) => {
-  //   profileTitleElement.textContent = popupInputTypeName.value
-  //   profileSubtitleElement.textContent = popupInputTypeJob.value
-  //   closePopup()
-  // const userInfo = new UserInfo({ profileTitleElement, profileSubtitleElement })
-  // console.log(userInfo.getUserInfo())
-  // userInfo.setUserInfo({popupInputTypeName,popupInputTypeJob})
-  console.log(newUserData)
   userInfo.setUserInfo(newUserData)
-
 }
 
-// const handleFormAddSubmit = () => {
-//   const newImage = {
-//     name: popupInputTypeImgTitle.value,
-//     link: popupInputTypeLink.value
-//   }
-//   const newCard = createCard(newImage)
-//   cardsContainerElement.prepend(newCard)
-//   closePopup()
-// }
+const handleFormAddSubmit = (newUserData) => {
+  const newImage = {
+    name: newUserData.name,
+    link: newUserData.job
+  }
+  const newCard = createCard(newImage)
+  cardsContainerElement.prepend(newCard)
+}
 
 const formEditValidator = new FormValidator(validationConfig, formEditElement);
 const formAddValidator = new FormValidator(validationConfig, formAddElement);
@@ -65,24 +52,17 @@ editProfileBtnElement.addEventListener('click', () => {
 
 addCardBtnElement.addEventListener('click', () => {
   resetInputError(formAddElement)
-  formAddValidator.enableValidation();
+  formAddValidator.enableValidation()
 
   const popup = new Popup(popupFormAddElement);
   popup.open();
 })
 
-const popupForm = new PopupWithForm(formEditElement, handleFormEditSubmit)
+const popupEdit = new PopupWithForm(formEditElement, handleFormEditSubmit)
+popupEdit.setEventlisteners()
 
-popupForm.setEventlisteners()
-
-
-// formEditElement.addEventListener('submit', () => {
-//   handleFormEditSubmit();
-// })
-
-formAddElement.addEventListener('submit', () => {
-  handleFormAddSubmit();
-})
+const popupAdd = new PopupWithForm(formAddElement, handleFormAddSubmit)
+popupAdd.setEventlisteners();
 
 const cardList = new Section({
   items: initialCards,

@@ -8,11 +8,11 @@ export default class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    const inputValues = {
-      name: popupInputTypeName.value,
-      job: popupInputTypeJob.value
+    const userInfo = {
+      name: this.popupSelector.querySelectorAll('.popup__input')[0].value,
+      job: this.popupSelector.querySelectorAll('.popup__input')[1].value
     }
-    return inputValues;
+    return userInfo;
   }
 
   close() {
@@ -25,6 +25,5 @@ export default class PopupWithForm extends Popup {
       this.handleFormSubmit(this._getInputValues());
       this.close()
     })
-
   }
 }
