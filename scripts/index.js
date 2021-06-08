@@ -5,6 +5,8 @@ import Popup from './Popup.js'
 import PopupWithImage from './PopupWithImage.js'
 import Section from './Section.js'
 
+import UserInfo from './UserInfo.js'
+
 const createCard = (cardData) => {
   let cardElement = new Card({
     cardData,
@@ -17,26 +19,31 @@ const createCard = (cardData) => {
   return cardElement = cardElement.generateCard()
 }
 
+
+
 const inputPopupFormEditContent = () => {
-  popupInputTypeName.value = profileTitleElement.textContent
-  popupInputTypeJob.value = profileSubtitleElement.textContent
+  const userInfo = new UserInfo({ profileTitleElement, profileSubtitleElement })
+  //   popupInputTypeName.value = profileTitleElement.textContent
+  //   popupInputTypeJob.value = profileSubtitleElement.textContent
+  userInfo.setUserInfo(userInfo.getUserInfo());
 }
 
 const handleFormEditSubmit = () => {
-  profileTitleElement.textContent = popupInputTypeName.value
-  profileSubtitleElement.textContent = popupInputTypeJob.value
-  closePopup()
+  //   profileTitleElement.textContent = popupInputTypeName.value
+  //   profileSubtitleElement.textContent = popupInputTypeJob.value
+  //   closePopup()
+
 }
 
-const handleFormAddSubmit = () => {
-  const newImage = {
-    name: popupInputTypeImgTitle.value,
-    link: popupInputTypeLink.value
-  }
-  const newCard = createCard(newImage)
-  cardsContainerElement.prepend(newCard)
-  closePopup()
-}
+// const handleFormAddSubmit = () => {
+//   const newImage = {
+//     name: popupInputTypeImgTitle.value,
+//     link: popupInputTypeLink.value
+//   }
+//   const newCard = createCard(newImage)
+//   cardsContainerElement.prepend(newCard)
+//   closePopup()
+// }
 
 const formEditValidator = new FormValidator(validationConfig, formEditElement);
 const formAddValidator = new FormValidator(validationConfig, formAddElement);
