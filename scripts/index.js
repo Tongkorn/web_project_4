@@ -6,6 +6,7 @@ import PopupWithImage from './PopupWithImage.js'
 import Section from './Section.js'
 
 import UserInfo from './UserInfo.js'
+import PopupWithForm from './PopupWithForm.js'
 
 const createCard = (cardData) => {
   let cardElement = new Card({
@@ -20,18 +21,23 @@ const createCard = (cardData) => {
 }
 
 
-
+const userInfo = new UserInfo({ profileTitleElement, profileSubtitleElement })
 const inputPopupFormEditContent = () => {
-  const userInfo = new UserInfo({ profileTitleElement, profileSubtitleElement })
+
   //   popupInputTypeName.value = profileTitleElement.textContent
   //   popupInputTypeJob.value = profileSubtitleElement.textContent
-  userInfo.setUserInfo(userInfo.getUserInfo());
+  userInfo.getUserInfo()
 }
 
-const handleFormEditSubmit = () => {
+const handleFormEditSubmit = (newUserData) => {
   //   profileTitleElement.textContent = popupInputTypeName.value
   //   profileSubtitleElement.textContent = popupInputTypeJob.value
   //   closePopup()
+  // const userInfo = new UserInfo({ profileTitleElement, profileSubtitleElement })
+  // console.log(userInfo.getUserInfo())
+  // userInfo.setUserInfo({popupInputTypeName,popupInputTypeJob})
+  console.log(newUserData)
+  userInfo.setUserInfo(newUserData)
 
 }
 
@@ -65,9 +71,14 @@ addCardBtnElement.addEventListener('click', () => {
   popup.open();
 })
 
-formEditElement.addEventListener('submit', () => {
-  handleFormEditSubmit();
-})
+const popupForm = new PopupWithForm(formEditElement, handleFormEditSubmit)
+
+popupForm.setEventlisteners()
+
+
+// formEditElement.addEventListener('submit', () => {
+//   handleFormEditSubmit();
+// })
 
 formAddElement.addEventListener('submit', () => {
   handleFormAddSubmit();

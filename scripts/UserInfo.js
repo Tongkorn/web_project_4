@@ -1,19 +1,21 @@
 export default class UserInfo {
   constructor({ profileTitleElement, profileSubtitleElement }) {
-    this.name = profileTitleElement.textContent;
-    this.job = profileSubtitleElement.textContent;
+    this.name = profileTitleElement;
+    this.job = profileSubtitleElement;
   }
 
   getUserInfo() {
     const userInfo = {
-      name: this.name,
-      job: this.job
+      name: this.name.textContent,
+      job: this.job.textContent
     }
-    return userInfo
+    popupInputTypeName.value = userInfo.name
+    popupInputTypeJob.value = userInfo.job;
+    return userInfo;
   }
 
   setUserInfo(newUserData) {
-    popupInputTypeName.value  = newUserData.name
-    popupInputTypeJob.value = newUserData.job
+    this.name.textContent = newUserData.name;
+    this.job.textContent = newUserData.job;
   }
 }

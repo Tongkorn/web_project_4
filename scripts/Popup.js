@@ -19,7 +19,7 @@ export default class Popup {
   }
 
   close() {
-    const activePopup = this._popupSelector.parentElement.querySelector('.popup_opened')
+    const activePopup = document.querySelector('.popup_opened')
     if (!!activePopup) {
       activePopup.classList.remove('popup_opened')
       document.removeEventListener('keydown', this._handleEseClose)
@@ -33,13 +33,11 @@ export default class Popup {
   }
 
   _closeOnOverlay = (event) => {
-    event.preventDefault();
     if (event.target.classList.contains('popup_opened'))
       this.close()
   };
 
   _handleEseClose(event) {
-    event.preventDefault();
     if (event.key === "Escape")
       this.close()
   }

@@ -3,41 +3,28 @@ import Popup from './Popup.js';
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, handleFormSubmit) {
     super(popupSelector)
+    this.popupSelector = popupSelector;
+    this.handleFormSubmit = handleFormSubmit.bind(this);
   }
 
   _getInputValues() {
-
+    const inputValues = {
+      name: popupInputTypeName.value,
+      job: popupInputTypeJob.value
+    }
+    return inputValues;
   }
 
-  close(){
-
+  close() {
+    this.popupSelector.reset();
+    super.close();
   }
-
-
-  // handleFormEditSubmit = () => {
-  //   profileTitleElement.textContent = popupInputTypeName.value
-  //   profileSubtitleElement.textContent = popupInputTypeJob.value
-  //   closePopup()
-  // }
-
-  // handleFormAddSubmit = () => {
-  //   const newImage = {
-  //     name: popupInputTypeImgTitle.value,
-  //     link: popupInputTypeLink.value
-  //   }
-  //   const newCard = createCard(newImage)
-  //   cardsContainerElement.prepend(newCard)
-  //   closePopup()
-  // }
 
   setEventlisteners() {
-
-    formEditElement.addEventListener('submit', () => {
-      this.handleFormEditSubmit();
+    this.popupSelector.addEventListener('submit', () => {
+      this.handleFormSubmit(this._getInputValues());
+      this.close()
     })
 
-    formAddElement.addEventListener('submit', () => {
-      this.handleFormAddSubmit();
-    })
   }
 }
