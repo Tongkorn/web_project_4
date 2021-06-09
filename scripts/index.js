@@ -30,10 +30,16 @@ const handleFormEditSubmit = (newUserData) => {
 }
 
 const handleFormAddSubmit = (newUserData) => {
-  const newImage = {
-    name: newUserData.name,
-    link: newUserData.job
-  }
+  // # 1
+  // const newImage = {
+  //   name: newUserData.name,
+  //   link: newUserData.job
+  // }
+
+  // # 2 
+  const newImage = Object.assign({},newUserData)
+  newImage.link = Object.assign(newUserData.job)
+
   const newCard = createCard(newImage)
   cardsContainerElement.prepend(newCard)
 }
