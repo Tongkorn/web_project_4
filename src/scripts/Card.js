@@ -1,3 +1,5 @@
+import {cardTemplate} from './constants.js'
+
 export class Card {
   constructor({ cardData, handleCardClick }, cardSelector) {
     this.cardText = cardData.name;

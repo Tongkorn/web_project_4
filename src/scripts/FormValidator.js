@@ -1,3 +1,5 @@
+import {validationConfig} from './validate-selector.js'
+
 export const resetInputError = (element) => {
   const formElement = element.closest(validationConfig.formSelector)
   if (!!formElement) {

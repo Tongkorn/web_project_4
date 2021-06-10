@@ -1,12 +1,16 @@
-import { Card } from './Card.js'
-import { FormValidator, resetInputError } from './FormValidator.js'
+import "./pages/index.css"
 
-import Popup from './Popup.js'
-import PopupWithImage from './PopupWithImage.js'
-import Section from './Section.js'
+import { Card } from './scripts/Card.js'
+import { FormValidator, resetInputError } from './scripts/FormValidator.js'
+import { initialCards } from './scripts/data-card.js'
+import { profileTitleElement, profileSubtitleElement, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement } from './scripts/constants.js'
+import { validationConfig } from './scripts/validate-selector.js'
 
-import UserInfo from './UserInfo.js'
-import PopupWithForm from './PopupWithForm.js'
+import Popup from './scripts/Popup.js'
+import PopupWithImage from './scripts/PopupWithImage.js'
+import Section from './scripts/Section.js'
+import UserInfo from './scripts/UserInfo.js'
+import PopupWithForm from './scripts/PopupWithForm.js'
 
 const createCard = (cardData) => {
   let cardElement = new Card({
@@ -30,17 +34,8 @@ const handleFormEditSubmit = (newUserData) => {
 }
 
 const handleFormAddSubmit = (newUserData) => {
-  // # 1
-  // const newImage = {
-  //   name: newUserData.name,
-  //   link: newUserData.job
-  // }
-
-  // # 2 
-  const newImage = Object.assign({},newUserData)
-  newImage.link = Object.assign(newUserData.job)
-
-  const newCard = createCard(newImage)
+  const { name, job: link } = newUserData
+  const newCard = createCard({ name, link })
   cardsContainerElement.prepend(newCard)
 }
 

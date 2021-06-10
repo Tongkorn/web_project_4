@@ -7,10 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Travel">
   <title>Around The U.S.</title>
-  <link rel="preload" href="./vendor/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- <link rel="preload" href="./vendor/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="./vendor/fonts/Inter-Medium.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="./vendor/fonts/Inter-Black.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" type="text/css" href="./pages/index.css">
+  <link rel="preload" href="./vendor/fonts/Inter-Black.woff2" as="font" type="font/woff2" crossorigin> -->
+  <!-- <link rel="stylesheet" type="text/css" href="./pages/index.css"> -->
 </head>
 
 <body class="root">
@@ -21,7 +21,7 @@
     <main class="content">
       <section class="profile">
         <div class="profile__container">
-          <img src="./images/avatar.svg" alt="avatar" class="profile__avatar">
+          <img src="<%=require('./images/avatar.svg')%>" alt="avatar" class="profile__avatar">
           <div class="profile__detail">
             <div class="profile__text">
               <h1 class="profile__name">Jacques Cousteau</h1>
@@ -67,7 +67,7 @@
     </div>
     <div class="popup" data-image="popup__view_image">
       <figure class="popup__card">
-        <img src="https://picsum.photos/400" class="popup__img" alt="untitled image">
+        <img src="<%'https://picsum.photos/400'%>" class="popup__img" alt="untitled image">
         <figcaption class="popup__img-caption">Untitled image</figcaption>
         <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
       </figure>
@@ -79,7 +79,7 @@
 
   <template id="card-template">
     <article class="card">
-      <img src="https://picsum.photos/400" alt="untitled image" class="card__pic">
+      <img src="<%'https://picsum.photos/400'%>" alt="untitled image" class="card__pic">
       <button type="button" class="card__delete" aria-label="delete-card"></button>
       <div class="card__content">
         <h2 class="card__title"></h2>
@@ -87,10 +87,10 @@
       </div>
     </article>
   </template>
-  <script src="scripts/constants.js"></script>
+  <!-- <script src="scripts/constants.js"></script>
   <script src="scripts/data-card.js"></script>
-  <script src="scripts/validate-selector.js"></script>
-  <script type="module" src="scripts/index.js"></script>
+  <script src="scripts/validate-selector.js"></script> -->
+  <!-- <script type="module" src="./src/index.js"></script> -->
 </body>
 
 </html>
