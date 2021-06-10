@@ -1,4 +1,4 @@
-import { closeBtnTag } from './constants.js';
+import { closeBtnTag } from '../utils/constants';
 
 export default class Popup {
   constructor(popupSelector) {

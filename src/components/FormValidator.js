@@ -1,4 +1,4 @@
-import {validationConfig} from './validate-selector.js'
+import {validationConfig} from '../utils/validate-selector'
 
 export const resetInputError = (element) => {
   const formElement = element.closest(validationConfig.formSelector)

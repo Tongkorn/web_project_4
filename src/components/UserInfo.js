@@ -1,5 +1,5 @@
 
-import { popupInputTypeName, popupInputTypeJob } from './constants.js'
+import { popupInputTypeName, popupInputTypeJob } from '../utils/constants.js'
 
 export default class UserInfo {
   constructor({ profileTitleElement, profileSubtitleElement }) {

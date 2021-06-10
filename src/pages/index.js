@@ -1,16 +1,16 @@
-import "./pages/index.css"
+import "../index.css"
 
-import { Card } from './scripts/Card.js'
-import { FormValidator, resetInputError } from './scripts/FormValidator.js'
-import { initialCards } from './scripts/data-card.js'
-import { profileTitleElement, profileSubtitleElement, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement } from './scripts/constants.js'
-import { validationConfig } from './scripts/validate-selector.js'
+import { Card } from '../components/Card.js'
+import { FormValidator, resetInputError } from '../components/FormValidator.js'
+import { initialCards } from '../utils/data-card.js'
+import { profileTitleElement, profileSubtitleElement, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement } from '../utils/constants.js'
+import { validationConfig } from '../utils/validate-selector.js'
 
-import Popup from './scripts/Popup.js'
-import PopupWithImage from './scripts/PopupWithImage.js'
-import Section from './scripts/Section.js'
-import UserInfo from './scripts/UserInfo.js'
-import PopupWithForm from './scripts/PopupWithForm.js'
+import Popup from '../components/Popup.js'
+import PopupWithImage from '../components/PopupWithImage.js'
+import Section from '../components/Section.js'
+import UserInfo from '../components/UserInfo.js'
+import PopupWithForm from '../components/PopupWithForm.js'
 
 const createCard = (cardData) => {
   let cardElement = new Card({
