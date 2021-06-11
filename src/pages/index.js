@@ -3,30 +3,36 @@ import "../index.css"
 import { Card } from '../components/Card.js'
 import { FormValidator, resetInputError } from '../components/FormValidator.js'
 import { initialCards } from '../utils/data-card.js'
-import { profileTitleElement, profileSubtitleElement, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement } from '../utils/constants.js'
+import { profileTitleElement, profileSubtitleElement, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement, popupInputTypeName, popupInputTypeJob, popupImg, cardTemplate } from '../utils/constants.js'
 import { validationConfig } from '../utils/validate-selector.js'
 
-import Popup from '../components/Popup.js'
-import PopupWithImage from '../components/PopupWithImage.js'
+// import Popup from '../components/Popup.js'
 import Section from '../components/Section.js'
 import UserInfo from '../components/UserInfo.js'
 import PopupWithForm from '../components/PopupWithForm.js'
+import PopupWithImage from '../components/PopupWithImage.js'
+
+const popupWithImage = new PopupWithImage(popupViewImageElement);
+
+// const popup = new Popup(popupFormEditElement);
+
 
 const createCard = (cardData) => {
   let cardElement = new Card({
     cardData,
-    handleCardClick: (event, cardSelector) => {
-      const popupWithImage = new PopupWithImage(cardSelector);
+    handleCardClick: (event) => {
       popupWithImage.open(event)
     }
-  }, popupViewImageElement)
+  }, cardTemplate)
 
   return cardElement = cardElement.generateCard()
 }
 
-const userInfo = new UserInfo({ profileTitleElement, profileSubtitleElement })
+
+const userInfo = new UserInfo(profileTitleElement, profileSubtitleElement)
 const inputPopupFormEditContent = () => {
-  userInfo.getUserInfo()
+  popupInputTypeName.value = userInfo.getUserInfo().name
+  popupInputTypeJob.value = userInfo.getUserInfo().job
 }
 
 const handleFormEditSubmit = (newUserData) => {
@@ -34,36 +40,32 @@ const handleFormEditSubmit = (newUserData) => {
 }
 
 const handleFormAddSubmit = (newUserData) => {
-  const { name, job: link } = newUserData
-  const newCard = createCard({ name, link })
+  const newCard = createCard(newUserData)
   cardsContainerElement.prepend(newCard)
 }
 
 const formEditValidator = new FormValidator(validationConfig, formEditElement);
 const formAddValidator = new FormValidator(validationConfig, formAddElement);
+// formEditValidator.enableValidation();
+// formAddValidator.enableValidation()
+
 
 editProfileBtnElement.addEventListener('click', () => {
-  resetInputError(formEditElement)
+  formEditValidator.resetInputError(formEditElement)
   inputPopupFormEditContent()
   formEditValidator.enableValidation();
-
-  const popup = new Popup(popupFormEditElement);
-  popup.open()
+  const popupEditProfile = new PopupWithForm(popupFormEditElement, handleFormEditSubmit)
+  popupEditProfile.open()
 });
 
 addCardBtnElement.addEventListener('click', () => {
-  resetInputError(formAddElement)
+  formAddValidator.resetInputError(formAddElement)
   formAddValidator.enableValidation()
 
-  const popup = new Popup(popupFormAddElement);
-  popup.open();
+  const popupAddCard = new PopupWithForm(popupFormAddElement, handleFormAddSubmit)
+  popupAddCard.open();
+
 })
-
-const popupEdit = new PopupWithForm(formEditElement, handleFormEditSubmit)
-popupEdit.setEventlisteners()
-
-const popupAdd = new PopupWithForm(formAddElement, handleFormAddSubmit)
-popupAdd.setEventlisteners();
 
 const cardList = new Section({
   items: initialCards,

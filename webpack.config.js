@@ -13,6 +13,15 @@ module.exports = {
     filename: "main.js",
     publicPath: ""
   },
+  resolve: {
+    extensions: ['', '.js'],
+    alias: {
+      // Constants: path.resolve(__dirname, "./src/utils/constants.js"),
+      // DataCard: path.resolve(__dirname, "./src/utils/data-card.js"),
+      // ValidationConfig: path.resolve(__dirname, "./src/utils/validate-selector.js")
+      Utils$: path.resolve(__dirname, './src/utils/constants.js')
+    }
+  },
   target: ['web', 'es5'],
   stats: { children: true },
   mode: 'development',

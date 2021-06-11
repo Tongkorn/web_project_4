@@ -1,8 +1,5 @@
-
-import { popupInputTypeName, popupInputTypeJob } from '../utils/constants.js'
-
 export default class UserInfo {
-  constructor({ profileTitleElement, profileSubtitleElement }) {
+  constructor(profileTitleElement, profileSubtitleElement) {
     this.name = profileTitleElement;
     this.job = profileSubtitleElement;
   }
@@ -12,13 +9,11 @@ export default class UserInfo {
       name: this.name.textContent,
       job: this.job.textContent
     }
-    popupInputTypeName.value = userInfo.name
-    popupInputTypeJob.value = userInfo.job;
     return userInfo;
   }
 
   setUserInfo(newUserData) {
     this.name.textContent = newUserData.name;
-    this.job.textContent = newUserData.job;
+    this.job.textContent = newUserData.aboutme;
   }
 }

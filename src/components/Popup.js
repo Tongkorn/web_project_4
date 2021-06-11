@@ -1,47 +1,40 @@
-import { closeBtnTag } from '../utils/constants';
+import {closeBtnList } from '../utils/constants';
 
 export default class Popup {
-  constructor(popupSelector) {
-    this._popupSelector = popupSelector;
-    this._handleEseClose = this._handleEseClose.bind(this);
+  constructor(popupElement) {
+    this._popupElement = popupElement;
+    this._handleEscClose = this._handleEscClose.bind(this);
+    this.close = this.close.bind(this)
   }
 
-  setEventlisteners() {
-    document.addEventListener('keydown', this._handleEseClose)
-    this._popupSelector.addEventListener('click', (event) => {
-      event.target.classList.contains(closeBtnTag)
-        ? this.close()
-        : this._closeOnOverlay(event)
-    })
+  _setEventlisteners() {
+    document.addEventListener('keydown', this._handleEscClose)
+    this._popupElement.addEventListener('click', this._closeOnOverlay)
   }
 
   open() {
-    this._popupSelector.classList.add('popup_opened')
-    this.setEventlisteners();
+    this._popupElement.classList.add('popup_opened')
+    this._setEventlisteners();
+    closeBtnList.forEach(closeBtn => {
+      closeBtn.addEventListener('click', this.close)
+    })
   }
 
   close() {
-    const activePopup = document.querySelector('.popup_opened')
-    if (!!activePopup) {
-      activePopup.classList.remove('popup_opened')
-      document.removeEventListener('keydown', this._handleEseClose)
-
-      this._popupSelector.removeEventListener('click', (event) => {
-        event.target.classList.contains(closeBtnTag)
-          ? this.close()
-          : this._closeOnOverlay(event)
-      })
-    }
+    this._popupElement.classList.remove('popup_opened')
+    document.removeEventListener('keydown', this._handleEscClose)
+    this._popupElement.removeEventListener('click', this._closeOnOverlay)
+    closeBtnList.forEach(closeBtn => {
+      closeBtn.removeEventListener('click', this.close)
+    })
   }
 
   _closeOnOverlay = (event) => {
-    if (event.target.classList.contains('popup_opened'))
-      this.close()
+    if (event.target.classList.contains('popup_opened')) this.close()
   };
 
-  _handleEseClose(event) {
-    if (event.key === "Escape")
-      this.close()
+  _handleEscClose(event) {
+    if (event.key === "Escape") this.close()
   }
 }
 
