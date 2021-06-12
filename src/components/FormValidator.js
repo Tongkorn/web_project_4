@@ -1,24 +1,3 @@
-// import {validationConfig} from '../utils/validate-selector'
-
-// export const resetInputError = (element) => {
-//   const formElement = element.closest(validationConfig.formSelector)
-//   if (!!formElement) {
-//     const errorElementList = formElement.querySelectorAll(`.${validationConfig.errorClass}`)
-//     const inputErrorElementList = formElement.querySelectorAll(`.${validationConfig.inputErrorClass}`)
-//     formElement.reset()
-//     if (errorElementList.length > 0) {
-//       errorElementList.forEach((error) => {
-//         error.classList.remove(validationConfig.errorClass)
-//       })
-//     }
-//     if (inputErrorElementList.length > 0) {
-//       inputErrorElementList.forEach((inputError) => {
-//         inputError.classList.remove(validationConfig.inputErrorClass)
-//       })
-//     }
-//   }
-// }
-
 export class FormValidator {
   constructor(settingObj, formElement) {
     this.formSelector = settingObj.formSelector

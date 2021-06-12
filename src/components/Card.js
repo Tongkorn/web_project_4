@@ -1,18 +1,15 @@
-import { cardTemplate } from '../utils/constants'
-
 export class Card {
   constructor({ cardData, handleCardClick }, cardTemplate) {
     this.cardText = cardData.name;
     this.cardLink = cardData.link;
     this.handleCardClick = handleCardClick;
     this.cardTemplate = cardTemplate;
-    // console.log(cardTemplate)
-
+    this.element = this._getTemplate();
+    this.cardPic = this.element.querySelector(".card__pic")
   }
 
   _getTemplate() {
-    const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-    return cardElement
+    return this.cardTemplate.querySelector(".card").cloneNode(true);
   }
 
   _fillHeart(event) {
@@ -26,15 +23,13 @@ export class Card {
   _setEventListeners() {
     this.element.querySelector(".card__like-btn").addEventListener('click', this._fillHeart);
     this.element.querySelector(".card__delete").addEventListener('click', this._removeCard);
-    this.element.querySelector(".card__pic").addEventListener('click', this.handleCardClick)
+    this.cardPic.addEventListener('click', this.handleCardClick)
   }
 
   generateCard() {
-    // console.log(this);
-    this.element = this._getTemplate();
-    this.element.querySelector(".card__pic").src = this.cardLink
+    this.cardPic.src = this.cardLink
     this.element.querySelector('.card__title').textContent = this.cardText;
-    this.element.querySelector('.card__pic').alt = this.cardText;
+    this.cardPic.alt = this.cardText;
     this._setEventListeners();
 
     return this.element
