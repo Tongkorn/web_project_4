@@ -2,7 +2,7 @@ import "./index.css"
 
 import { Card } from '../components/Card.js'
 import { FormValidator } from '../components/FormValidator.js'
-import { initialCards } from '../utils/data-card.js'
+import { renderInitialCards } from '../utils/data-card.js'
 import { profileTitleElement, profileSubtitleElement, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement, popupInputTypeName, popupInputTypeJob, cardTemplate } from '../utils/constants.js'
 import { validationConfig } from '../utils/validate-selector.js'
 
@@ -25,6 +25,7 @@ const createCard = (cardData) => {
 
 const userInfo = new UserInfo(profileTitleElement, profileSubtitleElement)
 const inputPopupFormEditContent = () => {
+  console.log(userInfo.getUserInfo());
   popupInputTypeName.value = userInfo.getUserInfo().name
   popupInputTypeJob.value = userInfo.getUserInfo().job
 }
@@ -55,14 +56,37 @@ editProfileBtnElement.addEventListener('click', () => {
 addCardBtnElement.addEventListener('click', () => {
   formAddValidator.resetInputError(formAddElement)
   popupAddCard.open();
+
 })
 
-const cardList = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const card = createCard(item)
-    cardList.addItem(card)
-  }
-}, cardsContainerElement)
+renderInitialCards()
+  .then(res => res.json())
+  .then((res) => {
+    console.log(res);
+    const cardList = new Section({
+      items: res,
+      renderer: (item) => {
+        const card = createCard(item)
+        cardList.addItem(card)
+      }
+    }, cardsContainerElement)
+    cardList.renderItems()
+  })
 
-cardList.renderItems()
+
+
+
+
+  // fetch("https://around.nomoreparties.co/group-12/users/me", {
+  //     headers: {
+  //       authorization: "e09604a5-57aa-4b20-9a83-ea66e5c6924b"
+  //     }
+  //   })
+  //     .then(res => res.json())
+  //     .then((result) => {
+  //       userInfo.name = result.name
+  //       userInfo.job = result.about
+  //     })
+    // .catch(err => {
+    //   console.log(err)
+    // })
