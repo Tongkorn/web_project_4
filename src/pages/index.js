@@ -2,8 +2,8 @@ import "./index.css"
 
 import { Card } from '../components/Card.js'
 import { FormValidator } from '../components/FormValidator.js'
-import { getInitialCards, getUserData, updateUser, addCard, deleteCard } from '../utils/api.js'
-import { profileTitleElement, profileSubtitleElement, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement, popupInputTypeName, popupInputTypeJob, cardTemplate, popupDeleteCardElement } from '../utils/constants.js'
+import { getInitialCards, getUserData, updateUser, addCard, deleteCard, addLike, removeLike, changeProfilePic } from '../utils/api.js'
+import { profileTitleElement, profileSubtitleElement, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement, popupInputTypeName, popupInputTypeJob, cardTemplate, popupDeleteCardElement, profileAvatarElement, popupChangeAvatarElement } from '../utils/constants.js'
 import { validationConfig } from '../utils/validate-selector.js'
 
 import Section from '../components/Section.js'
@@ -30,6 +30,29 @@ const createCard = (cardData) => {
         popupWithDelete.close()
         console.log(cardEvent.target.closest(".card").id);
       })
+    },
+    handleLikeClick: (event) => {
+      if (!(event.target.classList.contains("card__like_active"))) {
+        addLike(event.target.closest(".card").id)
+          .then(res => {
+            console.log(res)
+            event.target.classList.toggle('card__like_active');
+            event.target.closest(".card").querySelector('.card__like-total').textContent = parseInt(event.target.closest(".card").querySelector('.card__like-total').textContent) + 1
+          })
+          .catch(err => {
+            console.log(`Error: ${err}`)
+          })
+      } else if (event.target.classList.contains("card__like_active")) {
+        removeLike(event.target.closest(".card").id)
+          .then(res => {
+            console.log(res)
+            event.target.classList.toggle('card__like_active');
+            event.target.closest(".card").querySelector('.card__like-total').textContent = parseInt(event.target.closest(".card").querySelector('.card__like-total').textContent) - 1
+          })
+          .catch(err => {
+            console.log(`Error: ${err}`)
+          })
+      }
     }
   }, cardTemplate)
   return cardElement.generateCard()
@@ -43,27 +66,45 @@ const inputPopupFormEditContent = () => {
 
 const handleDeleteCardSubmit = (cardEvent) => {
   deleteCard(cardEvent.target.closest(".card").id)
-    .then((result) => { console.log(result) })
+    .then((result) => {
+      console.log(result)
+      cardEvent.target.closest(".card").remove();
+    })
     .catch(err => {
       console.log(`Error: ${err}`)
     })
-  cardEvent.target.closest(".card").remove();
 }
 
 const handleFormEditSubmit = (newUserData) => {
-  userInfo.setUserInfo(newUserData)
   updateUser(newUserData)
-    .then((result) => { console.log(result) })
+    .then((result) => {
+      console.log(result)
+      userInfo.setUserInfo(newUserData)
+    })
     .catch(err => {
       console.log(`Error: ${err}`)
     })
 }
 
 const handleFormAddSubmit = (newUserData) => {
-  const newCard = createCard(newUserData)
-  cardsContainerElement.prepend(newCard)
   addCard(newUserData)
-    .then((result) => { console.log(result) })
+    .then((result) => {
+      console.log(result)
+      const newCard = createCard(result)
+      cardsContainerElement.prepend(newCard)
+    })
+    .catch(err => {
+      console.log(`Error: ${err}`)
+    })
+}
+
+const handleChangeAvatar = (newAvatarObj) => {
+  console.log(newAvatarObj.avatar);
+  changeProfilePic(newAvatarObj)
+    .then((result) => {
+      console.log(result)
+      profileAvatarElement.src = newAvatarObj.avatar
+    })
     .catch(err => {
       console.log(`Error: ${err}`)
     })
@@ -77,6 +118,8 @@ formAddValidator.enableValidation();
 const popupEditProfile = new PopupWithForm(popupFormEditElement, handleFormEditSubmit)
 const popupAddCard = new PopupWithForm(popupFormAddElement, handleFormAddSubmit)
 
+const popupChangeAvatar = new PopupWithForm(popupChangeAvatarElement, handleChangeAvatar)
+
 editProfileBtnElement.addEventListener('click', () => {
   formEditValidator.resetInputError(formEditElement)
   inputPopupFormEditContent()
@@ -86,6 +129,10 @@ editProfileBtnElement.addEventListener('click', () => {
 addCardBtnElement.addEventListener('click', () => {
   formAddValidator.resetInputError(formAddElement)
   popupAddCard.open();
+})
+
+profileAvatarElement.addEventListener('click', () => {
+  popupChangeAvatar.open()
 })
 
 getUserData()

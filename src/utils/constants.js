@@ -14,3 +14,6 @@ export const cardTemplate = document.querySelector("#card-template").content;
 export const popupViewImageElement = document.querySelector('[data-image="popup__view_image"]')
 
 export const popupDeleteCardElement = document.querySelector('[data-form="popup__form_delete"]')
+
+export const profileAvatarElement = document.querySelector('.profile__avatar');
+export const popupChangeAvatarElement = document.querySelector('[data-form="popup__form_edit-avatar"]')

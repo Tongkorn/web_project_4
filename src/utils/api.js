@@ -122,3 +122,22 @@ export const removeLike = (cardId) => {
       return Promise.reject(res.status)
     })
 }
+
+export const changeProfilePic = (avatarLink) => {
+  return fetch(`${server}/${groupId}/users/me/avatar`, {
+    method: "PATCH",
+    headers: {
+      authorization: token,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      avatar: avatarLink.avatar
+    }),
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(res.status)
+    })
+}
