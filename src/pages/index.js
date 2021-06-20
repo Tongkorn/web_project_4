@@ -43,18 +43,30 @@ const inputPopupFormEditContent = () => {
 
 const handleDeleteCardSubmit = (cardEvent) => {
   deleteCard(cardEvent.target.closest(".card").id)
+    .then((result) => { console.log(result) })
+    .catch(err => {
+      console.log(`Error: ${err}`)
+    })
   cardEvent.target.closest(".card").remove();
 }
 
 const handleFormEditSubmit = (newUserData) => {
   userInfo.setUserInfo(newUserData)
   updateUser(newUserData)
+    .then((result) => { console.log(result) })
+    .catch(err => {
+      console.log(`Error: ${err}`)
+    })
 }
 
 const handleFormAddSubmit = (newUserData) => {
   const newCard = createCard(newUserData)
   cardsContainerElement.prepend(newCard)
   addCard(newUserData)
+    .then((result) => { console.log(result) })
+    .catch(err => {
+      console.log(`Error: ${err}`)
+    })
 }
 
 const formEditValidator = new FormValidator(validationConfig, formEditElement);
@@ -78,6 +90,7 @@ addCardBtnElement.addEventListener('click', () => {
 
 getUserData()
   .then((res) => {
+    console.log(res)
     userInfo.setUserInfo(res)
   })
   .catch(err => {

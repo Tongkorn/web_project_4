@@ -3,7 +3,6 @@ export class Card {
     this.cardData = cardData;
     this.cardText = cardData.name;
     this.cardLink = cardData.link;
-    console.log(cardData);
     this.handleCardClick = handleCardClick;
     this.handleTrashClick = handleTrashClick;
     this.cardTemplate = cardTemplate;
@@ -35,6 +34,11 @@ export class Card {
     this.cardPic.alt = this.cardText;
     if (!!this.cardData.likes) {
       this.element.querySelector('.card__like-total').textContent = Object.keys(this.cardData.likes).length
+    }
+    if (!!this.cardData.owner) {
+      if (this.cardData.owner._id !== "2bd44014f2a9ab1fc336e33a") {
+        this.element.querySelector(".card__delete").style.display = 'none'
+      }
     }
     this._setEventListeners();
 
