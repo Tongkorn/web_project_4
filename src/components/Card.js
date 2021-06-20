@@ -1,9 +1,11 @@
 export class Card {
-  constructor({ cardData, handleCardClick }, cardTemplate) {
+  constructor({ cardData, handleCardClick, handleTrashClick }, cardTemplate) {
+    this.cardData = cardData;
     this.cardText = cardData.name;
     this.cardLink = cardData.link;
-    this.cardLikes = Object.keys(cardData.likes).length;
+    console.log(cardData);
     this.handleCardClick = handleCardClick;
+    this.handleTrashClick = handleTrashClick;
     this.cardTemplate = cardTemplate;
     this.element = this._getTemplate();
     this.cardPic = this.element.querySelector(".card__pic")
@@ -17,13 +19,13 @@ export class Card {
     event.target.classList.toggle('card__like_active');
   }
 
-  _removeCard(event) {
-    event.target.closest(".card").remove();
-  }
+  // _removeCard(event) {
+  //   event.target.closest(".card").remove();
+  // }
 
   _setEventListeners() {
     this.element.querySelector(".card__like-btn").addEventListener('click', this._fillHeart);
-    this.element.querySelector(".card__delete").addEventListener('click', this._removeCard);
+    this.element.querySelector(".card__delete").addEventListener('click', this.handleTrashClick);
     this.cardPic.addEventListener('click', this.handleCardClick)
   }
 
@@ -31,7 +33,9 @@ export class Card {
     this.cardPic.src = this.cardLink
     this.element.querySelector('.card__title').textContent = this.cardText;
     this.cardPic.alt = this.cardText;
-    this.element.querySelector('.card__like-total').textContent = this.cardLikes;
+    if (!!this.cardData.likes) {
+      this.element.querySelector('.card__like-total').textContent = Object.keys(this.cardData.likes).length
+    }
     this._setEventListeners();
 
     return this.element

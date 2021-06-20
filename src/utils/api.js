@@ -54,9 +54,66 @@ export const addCard = (cardData) => {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
+      likes: [],
+      _id: "",
       name: cardData.name,
       link: cardData.link,
+      owner: {
+        name: "",
+        about: "",
+        avatar: "",
+        _id: "",
+        cohort: ""
+      },
     })
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(res.status)
+    })
+}
+
+export const deleteCard = (cardId) => {
+  return fetch(`${server}/v1/${groupId}/cards/${cardId}`, {
+    method: "DELETE",
+    headers: {
+      authorization: token,
+      "Content-Type": "application/json"
+    },
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(res.status)
+    })
+}
+
+export const addLike = (cardId) => {
+  return fetch(`${server}/v1/${groupId}/cards/likes/${cardId}`, {
+    method: "PUT",
+    headers: {
+      authorization: token,
+      "Content-Type": "application/json"
+    },
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(res.status)
+    })
+}
+
+export const removeLike = (cardId) => {
+  return fetch(`${server}/v1/${groupId}/cards/likes/${cardId}`, {
+    method: "DELETE",
+    headers: {
+      authorization: token,
+      "Content-Type": "application/json"
+    },
   })
     .then(res => {
       if (res.ok) {

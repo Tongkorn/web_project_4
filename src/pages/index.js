@@ -2,22 +2,34 @@ import "./index.css"
 
 import { Card } from '../components/Card.js'
 import { FormValidator } from '../components/FormValidator.js'
-import { getInitialCards, getUserData, updateUser, addCard } from '../utils/api.js'
-import { profileTitleElement, profileSubtitleElement, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement, popupInputTypeName, popupInputTypeJob, cardTemplate } from '../utils/constants.js'
+import { getInitialCards, getUserData, updateUser, addCard, deleteCard } from '../utils/api.js'
+import { profileTitleElement, profileSubtitleElement, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement, popupInputTypeName, popupInputTypeJob, cardTemplate, popupDeleteCardElement } from '../utils/constants.js'
 import { validationConfig } from '../utils/validate-selector.js'
 
 import Section from '../components/Section.js'
 import UserInfo from '../components/UserInfo.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import PopupWithImage from '../components/PopupWithImage.js'
+import PopupWithDelete from "../components/PopupWithDelete.js"
 
 const popupWithImage = new PopupWithImage(popupViewImageElement);
+
+const popupWithDelete = new PopupWithDelete(popupDeleteCardElement)
 
 const createCard = (cardData) => {
   const cardElement = new Card({
     cardData,
     handleCardClick: (event) => {
       popupWithImage.open(event)
+    },
+    handleTrashClick: (cardEvent) => {
+      popupWithDelete.open()
+      popupDeleteCardElement.querySelector('form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        handleDeleteCardSubmit(cardEvent)
+        popupWithDelete.close()
+        console.log(cardEvent.target.closest(".card").id);
+      })
     }
   }, cardTemplate)
   return cardElement.generateCard()
@@ -27,6 +39,11 @@ const userInfo = new UserInfo(profileTitleElement, profileSubtitleElement)
 const inputPopupFormEditContent = () => {
   popupInputTypeName.value = userInfo.getUserInfo().name
   popupInputTypeJob.value = userInfo.getUserInfo().job
+}
+
+const handleDeleteCardSubmit = (cardEvent) => {
+  deleteCard(cardEvent.target.closest(".card").id)
+  cardEvent.target.closest(".card").remove();
 }
 
 const handleFormEditSubmit = (newUserData) => {
@@ -61,7 +78,6 @@ addCardBtnElement.addEventListener('click', () => {
 
 getUserData()
   .then((res) => {
-    console.log(res);
     userInfo.setUserInfo(res)
   })
   .catch(err => {

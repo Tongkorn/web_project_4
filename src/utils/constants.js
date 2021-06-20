@@ -12,3 +12,5 @@ export const popupInputTypeJob = document.querySelector('.popup__input_type_job'
 export const cardsContainerElement = document.querySelector(".cards");
 export const cardTemplate = document.querySelector("#card-template").content;
 export const popupViewImageElement = document.querySelector('[data-image="popup__view_image"]')
+
+export const popupDeleteCardElement = document.querySelector('[data-form="popup__form_delete"]')
