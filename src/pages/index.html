@@ -41,8 +41,8 @@
         <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Name" id="name-input"
           required>
         <span class="popup__error name-input-error">Please fill out this field.</span>
-        <input type="text" name="aboutme" class="popup__input popup__input_type_job" placeholder="About me"
-          id="job-input" required>
+        <input type="text" name="about" class="popup__input popup__input_type_job" placeholder="About me" id="job-input"
+          required>
         <span class="popup__error job-input-error">Please fill out this field.</span>
         <button type="submit" class="popup__btn popup__btn_type_save" aria-label="save">Save</button>
         <button type="button" class="popup__btn popup__btn_type_close" aria-label="close"></button>
@@ -79,7 +79,11 @@
       <button type="button" class="card__delete" aria-label="delete-card"></button>
       <div class="card__content">
         <h2 class="card__title"></h2>
-        <button type="button" class="card__like-btn" aria-label="like"></button>
+        <div class="card__like-container">
+          <button type="button" class="card__like-btn" aria-label="like">
+          </button>
+          <p class="card__like-total">0</p>
+        </div>
       </div>
     </article>
   </template>

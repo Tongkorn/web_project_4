@@ -2,6 +2,7 @@ export class Card {
   constructor({ cardData, handleCardClick }, cardTemplate) {
     this.cardText = cardData.name;
     this.cardLink = cardData.link;
+    this.cardLikes = Object.keys(cardData.likes).length;
     this.handleCardClick = handleCardClick;
     this.cardTemplate = cardTemplate;
     this.element = this._getTemplate();
@@ -30,6 +31,7 @@ export class Card {
     this.cardPic.src = this.cardLink
     this.element.querySelector('.card__title').textContent = this.cardText;
     this.cardPic.alt = this.cardText;
+    this.element.querySelector('.card__like-total').textContent = this.cardLikes;
     this._setEventListeners();
 
     return this.element

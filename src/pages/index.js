@@ -2,7 +2,7 @@ import "./index.css"
 
 import { Card } from '../components/Card.js'
 import { FormValidator } from '../components/FormValidator.js'
-import { renderInitialCards } from '../utils/data-card.js'
+import { getInitialCards, getUserData, updateUser, addCard } from '../utils/api.js'
 import { profileTitleElement, profileSubtitleElement, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement, popupInputTypeName, popupInputTypeJob, cardTemplate } from '../utils/constants.js'
 import { validationConfig } from '../utils/validate-selector.js'
 
@@ -25,18 +25,19 @@ const createCard = (cardData) => {
 
 const userInfo = new UserInfo(profileTitleElement, profileSubtitleElement)
 const inputPopupFormEditContent = () => {
-  console.log(userInfo.getUserInfo());
   popupInputTypeName.value = userInfo.getUserInfo().name
   popupInputTypeJob.value = userInfo.getUserInfo().job
 }
 
 const handleFormEditSubmit = (newUserData) => {
   userInfo.setUserInfo(newUserData)
+  updateUser(newUserData)
 }
 
 const handleFormAddSubmit = (newUserData) => {
   const newCard = createCard(newUserData)
   cardsContainerElement.prepend(newCard)
+  addCard(newUserData)
 }
 
 const formEditValidator = new FormValidator(validationConfig, formEditElement);
@@ -56,11 +57,18 @@ editProfileBtnElement.addEventListener('click', () => {
 addCardBtnElement.addEventListener('click', () => {
   formAddValidator.resetInputError(formAddElement)
   popupAddCard.open();
-
 })
 
-renderInitialCards()
-  .then(res => res.json())
+getUserData()
+  .then((res) => {
+    console.log(res);
+    userInfo.setUserInfo(res)
+  })
+  .catch(err => {
+    console.log(`Error: ${err}`)
+  })
+
+getInitialCards()
   .then((res) => {
     console.log(res);
     const cardList = new Section({
@@ -72,21 +80,8 @@ renderInitialCards()
     }, cardsContainerElement)
     cardList.renderItems()
   })
+  .catch(err => {
+    console.log(`Error: ${err}`)
+  })
 
 
-
-
-
-  // fetch("https://around.nomoreparties.co/group-12/users/me", {
-  //     headers: {
-  //       authorization: "e09604a5-57aa-4b20-9a83-ea66e5c6924b"
-  //     }
-  //   })
-  //     .then(res => res.json())
-  //     .then((result) => {
-  //       userInfo.name = result.name
-  //       userInfo.job = result.about
-  //     })
-    // .catch(err => {
-    //   console.log(err)
-    // })

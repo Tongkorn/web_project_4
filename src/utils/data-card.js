@@ -1,13 +1,3 @@
-
-export const renderInitialCards = () => {
-  return fetch("https://around.nomoreparties.co/group-12/cards", {
-    headers: {
-      authorization: "e09604a5-57aa-4b20-9a83-ea66e5c6924b"
-    }
-  })
-
-}
-
 //********************* Old Initial cards *********************/
 
 // const yosemiteImage = 'https://code.s3.yandex.net/web-code/yosemite.jpg'
