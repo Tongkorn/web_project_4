@@ -13,6 +13,7 @@ export const getUserData = () => {
       if (res.ok) {
         return res.json()
       }
+      // if the server returns an error, reject the promise
       return Promise.reject(res.status)
     })
 }
@@ -44,6 +45,12 @@ export const updateUser = (userData) => {
       about: userData.about
     })
   })
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(res.status)
+    })
 }
 
 export const addCard = (cardData) => {

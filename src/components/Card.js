@@ -3,6 +3,10 @@ export class Card {
     this.cardData = cardData;
     this.cardText = cardData.name;
     this.cardLink = cardData.link;
+    this.cardId = cardData._id;
+    this.cardOwnerId = cardData.owner._id
+    this.cardLikes = cardData.likes
+    this.userId = "2bd44014f2a9ab1fc336e33a"
     this.handleCardClick = handleCardClick;
     this.handleTrashClick = handleTrashClick;
     this.handleLikeClick = handleLikeClick;
@@ -34,24 +38,18 @@ export class Card {
     this.element.querySelector('.card__title').textContent = this.cardText;
     this.cardPic.alt = this.cardText;
     this.element.id = this.cardData._id
-    if (!!this.cardData.likes) {
-      this.element.querySelector('.card__like-total').textContent = Object.keys(this.cardData.likes).length
+    this.element.querySelector('.card__like-total').textContent = Object.keys(this.cardData.likes).length
 
-      this.cardData.likes.forEach(like => {
-        if (like['_id'] === "2bd44014f2a9ab1fc336e33a") {
-          this.element.querySelector(".card__like-btn").classList.add('card__like_active')
-        }
-      })
-    }
-    if (!!this.cardData.owner) {
-      console.log(this.element);
-      if (this.cardData.owner._id !== "2bd44014f2a9ab1fc336e33a") {
-        this.element.querySelector(".card__delete").style.display = 'none';
-
+    this.cardLikes.forEach(like => {
+      if (like['_id'] === this.cardOwnerId) {
+        this.element.querySelector(".card__like-btn").classList.toggle('card__like_active')
       }
+    })
+
+    if (this.cardOwnerId !== this.userId) {
+      this.element.querySelector(".card__delete").style.display = 'none';
     }
     this._setEventListeners();
-
     return this.element
   }
 }

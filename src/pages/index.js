@@ -13,7 +13,6 @@ import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithDelete from "../components/PopupWithDelete.js"
 
 const popupWithImage = new PopupWithImage(popupViewImageElement);
-
 const popupWithDelete = new PopupWithDelete(popupDeleteCardElement)
 
 const createCard = (cardData) => {
@@ -64,6 +63,15 @@ const inputPopupFormEditContent = () => {
   popupInputTypeJob.value = userInfo.getUserInfo().job
 }
 
+const saving = (popupElement, isSaving) => {
+  const element = popupElement.querySelector('.popup__btn_type_save')
+  if (isSaving) {
+    element.innerHTML = element.getAttribute("data-text-saving")
+  } else {
+    element.innerHTML = element.getAttribute("data-text-original")
+  }
+}
+
 const handleDeleteCardSubmit = (cardEvent) => {
   deleteCard(cardEvent.target.closest(".card").id)
     .then((result) => {
@@ -76,10 +84,13 @@ const handleDeleteCardSubmit = (cardEvent) => {
 }
 
 const handleFormEditSubmit = (newUserData) => {
+  saving(popupFormEditElement, true)
+
   updateUser(newUserData)
     .then((result) => {
       console.log(result)
       userInfo.setUserInfo(newUserData)
+      saving(popupFormEditElement, false)
     })
     .catch(err => {
       console.log(`Error: ${err}`)
@@ -87,11 +98,14 @@ const handleFormEditSubmit = (newUserData) => {
 }
 
 const handleFormAddSubmit = (newUserData) => {
+  saving(popupFormAddElement, true)
+
   addCard(newUserData)
     .then((result) => {
       console.log(result)
       const newCard = createCard(result)
       cardsContainerElement.prepend(newCard)
+      saving(popupFormAddElement, false)
     })
     .catch(err => {
       console.log(`Error: ${err}`)
@@ -99,11 +113,13 @@ const handleFormAddSubmit = (newUserData) => {
 }
 
 const handleChangeAvatar = (newAvatarObj) => {
-  console.log(newAvatarObj.avatar);
+  saving(popupChangeAvatarElement, true)
+
   changeProfilePic(newAvatarObj)
     .then((result) => {
       console.log(result)
-      profileAvatarElement.src = newAvatarObj.avatar
+      profileAvatarElement.style.backgroundImage = `url(${newAvatarObj.avatar})`
+      saving(popupChangeAvatarElement, false)
     })
     .catch(err => {
       console.log(`Error: ${err}`)
@@ -117,7 +133,6 @@ formAddValidator.enableValidation();
 
 const popupEditProfile = new PopupWithForm(popupFormEditElement, handleFormEditSubmit)
 const popupAddCard = new PopupWithForm(popupFormAddElement, handleFormAddSubmit)
-
 const popupChangeAvatar = new PopupWithForm(popupChangeAvatarElement, handleChangeAvatar)
 
 editProfileBtnElement.addEventListener('click', () => {
@@ -135,15 +150,6 @@ profileAvatarElement.addEventListener('click', () => {
   popupChangeAvatar.open()
 })
 
-getUserData()
-  .then((res) => {
-    console.log(res)
-    userInfo.setUserInfo(res)
-  })
-  .catch(err => {
-    console.log(`Error: ${err}`)
-  })
-
 getInitialCards()
   .then((res) => {
     console.log(res);
@@ -160,4 +166,12 @@ getInitialCards()
     console.log(`Error: ${err}`)
   })
 
-
+getUserData()
+  .then((res) => {
+    console.log(res)
+    profileAvatarElement.style.backgroundImage = `url(${res.avatar})`
+    userInfo.setUserInfo(res)
+  })
+  .catch(err => {
+    console.log(`Error: ${err}`)
+  })
