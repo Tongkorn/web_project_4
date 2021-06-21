@@ -24,4 +24,20 @@
 .loading__logo {
   margin-left: 0;
   animation: loading__logo 1.5s ease-in forwards;
+  width: 39.375vw;
+  max-width: 173px;
+  min-height: 7.5vw;
+  box-sizing: border-box;
+  margin-left: 27px;
+  background-image: url(../../../images/logo.svg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@media screen and (min-width: 1280px) {
+  .loading__logo {
+    min-height: 33px;
+    margin-left: 0;
+  }
 }
