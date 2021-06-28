@@ -1,16 +1,26 @@
 import "./index.css"
 
+// import { initialCards } from '../utils/data-card.js'
 import { Card } from '../components/Card.js'
 import { FormValidator } from '../components/FormValidator.js'
-import { getInitialCards, getUserData, updateUser, addCard, deleteCard, addLike, removeLike, changeProfilePic } from '../utils/api.js'
 import { profileTitleElement, profileSubtitleElement, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement, popupInputTypeName, popupInputTypeJob, cardTemplate, popupDeleteCardElement, profileAvatarElement, popupChangeAvatarElement } from '../utils/constants.js'
 import { validationConfig } from '../utils/validate-selector.js'
 
+import API from '../components/Api.js';
 import Section from '../components/Section.js'
 import UserInfo from '../components/UserInfo.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import PopupWithImage from '../components/PopupWithImage.js'
-import PopupWithDelete from "../components/PopupWithDelete.js"
+import PopupWithDelete from '../components/PopupWithDelete.js'
+
+const api = new API(
+  "https://around.nomoreparties.co/v1/", {
+  method: "GET",
+  headers: {
+    authorization: "e09604a5-57aa-4b20-9a83-ea66e5c6924b",
+    "Content-Type": "application/json"
+  }
+})
 
 const popupWithImage = new PopupWithImage(popupViewImageElement);
 const popupWithDelete = new PopupWithDelete(popupDeleteCardElement)
@@ -32,7 +42,7 @@ const createCard = (cardData) => {
     },
     handleLikeClick: (event) => {
       if (!(event.target.classList.contains("card__like_active"))) {
-        addLike(event.target.closest(".card").id)
+        api.addLike(event.target.closest(".card").id)
           .then(res => {
             console.log(res)
             event.target.classList.toggle('card__like_active');
@@ -42,7 +52,7 @@ const createCard = (cardData) => {
             console.log(`Error: ${err}`)
           })
       } else if (event.target.classList.contains("card__like_active")) {
-        removeLike(event.target.closest(".card").id)
+        api.removeLike(event.target.closest(".card").id)
           .then(res => {
             console.log(res)
             event.target.classList.toggle('card__like_active');
@@ -73,7 +83,7 @@ const saving = (popupElement, isSaving) => {
 }
 
 const handleDeleteCardSubmit = (cardEvent) => {
-  deleteCard(cardEvent.target.closest(".card").id)
+  api.deleteCard(cardEvent.target.closest(".card").id)
     .then((result) => {
       console.log(result)
       cardEvent.target.closest(".card").remove();
@@ -86,7 +96,7 @@ const handleDeleteCardSubmit = (cardEvent) => {
 const handleFormEditSubmit = (newUserData) => {
   saving(popupFormEditElement, true)
 
-  updateUser(newUserData)
+  api.updateUser(newUserData)
     .then((result) => {
       console.log(result)
       userInfo.setUserInfo(newUserData)
@@ -100,7 +110,7 @@ const handleFormEditSubmit = (newUserData) => {
 const handleFormAddSubmit = (newUserData) => {
   saving(popupFormAddElement, true)
 
-  addCard(newUserData)
+  api.addCard(newUserData)
     .then((result) => {
       console.log(result)
       const newCard = createCard(result)
@@ -115,7 +125,7 @@ const handleFormAddSubmit = (newUserData) => {
 const handleChangeAvatar = (newAvatarObj) => {
   saving(popupChangeAvatarElement, true)
 
-  changeProfilePic(newAvatarObj)
+  api.changeProfilePic(newAvatarObj)
     .then((result) => {
       console.log(result)
       profileAvatarElement.style.backgroundImage = `url(${newAvatarObj.avatar})`
@@ -150,28 +160,36 @@ profileAvatarElement.addEventListener('click', () => {
   popupChangeAvatar.open()
 })
 
-getInitialCards()
-  .then((res) => {
-    console.log(res);
-    const cardList = new Section({
-      items: res,
-      renderer: (item) => {
-        const card = createCard(item)
-        cardList.addItem(card)
-      }
-    }, cardsContainerElement)
-    cardList.renderItems()
-  })
-  .catch(err => {
-    console.log(`Error: ${err}`)
-  })
+const initializeCards = (data) => {
+  console.log(data)
+  const cardList = new Section({
+    items: data,
+    renderer: (item) => {
+      const card = createCard(item)
+      cardList.addItem(card)
+    }
+  }, cardsContainerElement)
+  cardList.renderItems()
+}
 
-getUserData()
-  .then((res) => {
-    console.log(res)
-    profileAvatarElement.style.backgroundImage = `url(${res.avatar})`
-    userInfo.setUserInfo(res)
-  })
-  .catch(err => {
-    console.log(`Error: ${err}`)
+const initializeUser = (data) => {
+  console.log(data)
+  profileAvatarElement.style.backgroundImage = `url(${data.avatar})`
+  userInfo.setUserInfo(data)
+}
+
+//Immediate Rejection Handling
+Promise.all([
+  api.getInitialCards()
+    .catch(error => {
+      return (`Error: ${error}`)
+    }),
+  api.getUserData()
+    .catch(error => {
+      return (`Error: ${error}`)
+    })
+])
+  .then(data => {
+    initializeCards(data[0])
+    initializeUser(data[1])
   })

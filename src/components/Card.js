@@ -41,7 +41,7 @@ export class Card {
     this.element.querySelector('.card__like-total').textContent = Object.keys(this.cardData.likes).length
 
     this.cardLikes.forEach(like => {
-      if (like['_id'] === this.cardOwnerId) {
+      if (like['_id'] === this.userId) {
         this.element.querySelector(".card__like-btn").classList.toggle('card__like_active')
       }
     })
