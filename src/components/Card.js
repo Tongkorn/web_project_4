@@ -1,15 +1,14 @@
 export class Card {
-  constructor({ cardData, handleCardClick, handleTrashClick, handleLikeClick }, cardTemplate) {
-    this.cardData = cardData;
-    this.cardText = cardData.name;
-    this.cardLink = cardData.link;
-    this.cardId = cardData._id;
-    this.cardOwnerId = cardData.owner._id
-    this.cardLikes = cardData.likes
-    this.userId = "2bd44014f2a9ab1fc336e33a"
-    this.handleCardClick = handleCardClick;
-    this.handleTrashClick = handleTrashClick;
-    this.handleLikeClick = handleLikeClick;
+  constructor({ name, link, _id, likes, owner, handleCardClickCallbackFn, handleTrashClickCallbackFn, handleLikeClickCallbackFn }, userId, cardTemplate) {
+    this.cardName = name;
+    this.cardLink = link;
+    this.cardId = _id;
+    this.cardOwnerId = owner._id;
+    this.cardLikes = likes;
+    this.userId = userId;
+    this.handleCardClick = handleCardClickCallbackFn;
+    this.handleTrashClick = handleTrashClickCallbackFn;
+    this.handleLikeClick = handleLikeClickCallbackFn;
     this.cardTemplate = cardTemplate;
     this.element = this._getTemplate();
     this.cardPic = this.element.querySelector(".card__pic")
@@ -35,16 +34,18 @@ export class Card {
 
   generateCard() {
     this.cardPic.src = this.cardLink
-    this.element.querySelector('.card__title').textContent = this.cardText;
-    this.cardPic.alt = this.cardText;
-    this.element.id = this.cardData._id
-    this.element.querySelector('.card__like-total').textContent = Object.keys(this.cardData.likes).length
+    this.element.querySelector('.card__title').textContent = this.cardName;
+    this.cardPic.alt = this.cardName;
+    this.element.id = this.cardId
+    this.element.querySelector('.card__like-total').textContent = Object.keys(this.cardLikes).length
 
-    this.cardLikes.forEach(like => {
-      if (like['_id'] === this.userId) {
-        this.element.querySelector(".card__like-btn").classList.toggle('card__like_active')
-      }
-    })
+    if (this.cardLikes.length > 0) {
+      this.cardLikes.forEach(like => {
+        if (like['_id'] === this.userId) {
+          this.element.querySelector(".card__like-btn").classList.toggle('card__like_active')
+        }
+      })
+    }
 
     if (this.cardOwnerId !== this.userId) {
       this.element.querySelector(".card__delete").style.display = 'none';

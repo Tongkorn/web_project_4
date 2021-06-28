@@ -6,22 +6,24 @@ export default class Popup {
     this.closeBtnElement = popupElement.querySelector('.popup__btn_type_close')
   }
 
-  _setEventlisteners() {
-    document.addEventListener('keydown', this._handleEscClose)
+  setEventlisteners() {
     this._popupElement.addEventListener('click', this._closeOnOverlay)
+    this.closeBtnElement.addEventListener('click', this.close)
   }
 
   open() {
     this._popupElement.classList.add('popup_opened')
-    this._setEventlisteners();
-    this.closeBtnElement.addEventListener('click', this.close)
+    document.addEventListener('keydown', this._handleEscClose)
+
+    // this.setEventlisteners();
+    // this.closeBtnElement.addEventListener('click', this.close)
   }
 
   close() {
     this._popupElement.classList.remove('popup_opened')
     document.removeEventListener('keydown', this._handleEscClose)
-    this._popupElement.removeEventListener('click', this._closeOnOverlay)
-    this.closeBtnElement.removeEventListener('click', this.close)
+    // this._popupElement.removeEventListener('click', this._closeOnOverlay)
+    // this.closeBtnElement.removeEventListener('click', this.close)
   }
 
   _closeOnOverlay = (event) => {

@@ -50,17 +50,8 @@ export default class Api {
       method: "POST",
       headers: this.options.headers,
       body: JSON.stringify({
-        likes: [],
-        _id: "",
         name: cardData.name,
         link: cardData.link,
-        owner: {
-          name: "",
-          about: "",
-          avatar: "",
-          _id: "",
-          cohort: ""
-        },
       })
     })
       .then(res => {

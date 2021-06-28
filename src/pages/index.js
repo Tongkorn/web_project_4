@@ -3,15 +3,26 @@ import "./index.css"
 // import { initialCards } from '../utils/data-card.js'
 import { Card } from '../components/Card.js'
 import { FormValidator } from '../components/FormValidator.js'
-import { profileTitleElement, profileSubtitleElement, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement, popupInputTypeName, popupInputTypeJob, cardTemplate, popupDeleteCardElement, profileAvatarElement, popupChangeAvatarElement } from '../utils/constants.js'
+import { profileTitleElement, profileSubtitleElement, popupElementList, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement, popupInputTypeName, popupInputTypeJob, cardTemplate, popupDeleteCardElement, profileAvatarElement, popupChangeAvatarElement } from '../utils/constants.js'
 import { validationConfig } from '../utils/validate-selector.js'
 
 import API from '../components/Api.js';
 import Section from '../components/Section.js'
 import UserInfo from '../components/UserInfo.js'
+import Popup from '../components/Popup.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithDelete from '../components/PopupWithDelete.js'
+
+const popupWithImage = new PopupWithImage(popupViewImageElement);
+const formEditValidator = new FormValidator(validationConfig, formEditElement);
+const formAddValidator = new FormValidator(validationConfig, formAddElement);
+formEditValidator.enableValidation();
+formAddValidator.enableValidation();
+
+
+const userInfo = new UserInfo(profileTitleElement, profileSubtitleElement, profileAvatarElement
+)
 
 const api = new API(
   "https://around.nomoreparties.co/v1/", {
@@ -22,25 +33,17 @@ const api = new API(
   }
 })
 
-const popupWithImage = new PopupWithImage(popupViewImageElement);
-const popupWithDelete = new PopupWithDelete(popupDeleteCardElement)
-
-const createCard = (cardData) => {
+const createCard = ({ name, link, _id, likes, owner }) => {
+  const userId = userInfo.getUserId()
   const cardElement = new Card({
-    cardData,
-    handleCardClick: (event) => {
+    name, link, _id, likes, owner,
+    handleCardClickCallbackFn: (event) => {
       popupWithImage.open(event)
     },
-    handleTrashClick: (cardEvent) => {
-      popupWithDelete.open()
-      popupDeleteCardElement.querySelector('form').addEventListener('submit', (event) => {
-        event.preventDefault();
-        handleDeleteCardSubmit(cardEvent)
-        popupWithDelete.close()
-        console.log(cardEvent.target.closest(".card").id);
-      })
+    handleTrashClickCallbackFn: (event) => {
+      popupWithDelete.open(event)
     },
-    handleLikeClick: (event) => {
+    handleLikeClickCallbackFn: (event) => {
       if (!(event.target.classList.contains("card__like_active"))) {
         api.addLike(event.target.closest(".card").id)
           .then(res => {
@@ -63,16 +66,11 @@ const createCard = (cardData) => {
           })
       }
     }
-  }, cardTemplate)
+  }, userId, cardTemplate)
   return cardElement.generateCard()
 }
 
-const userInfo = new UserInfo(profileTitleElement, profileSubtitleElement)
-const inputPopupFormEditContent = () => {
-  popupInputTypeName.value = userInfo.getUserInfo().name
-  popupInputTypeJob.value = userInfo.getUserInfo().job
-}
-
+//TODO: Refactor Needed, more research on switching textContent
 const saving = (popupElement, isSaving) => {
   const element = popupElement.querySelector('.popup__btn_type_save')
   if (isSaving) {
@@ -82,11 +80,15 @@ const saving = (popupElement, isSaving) => {
   }
 }
 
+//TODO: Remove Card after successful delete in server.
 const handleDeleteCardSubmit = (cardEvent) => {
-  api.deleteCard(cardEvent.target.closest(".card").id)
+  console.log(cardEvent)
+  // api.deleteCard(cardEvent.target.closest(".card").id)
+  api.deleteCard(cardEvent)
     .then((result) => {
       console.log(result)
-      cardEvent.target.closest(".card").remove();
+      console.log(cardsContainerElement.dataset.id)
+      // cardEvent.target.closest(".card").remove();
     })
     .catch(err => {
       console.log(`Error: ${err}`)
@@ -109,6 +111,7 @@ const handleFormEditSubmit = (newUserData) => {
 
 const handleFormAddSubmit = (newUserData) => {
   saving(popupFormAddElement, true)
+  console.log(newUserData)
 
   api.addCard(newUserData)
     .then((result) => {
@@ -136,18 +139,23 @@ const handleChangeAvatar = (newAvatarObj) => {
     })
 }
 
-const formEditValidator = new FormValidator(validationConfig, formEditElement);
-const formAddValidator = new FormValidator(validationConfig, formAddElement);
-formEditValidator.enableValidation();
-formAddValidator.enableValidation();
-
 const popupEditProfile = new PopupWithForm(popupFormEditElement, handleFormEditSubmit)
 const popupAddCard = new PopupWithForm(popupFormAddElement, handleFormAddSubmit)
 const popupChangeAvatar = new PopupWithForm(popupChangeAvatarElement, handleChangeAvatar)
+const popupWithDelete = new PopupWithDelete(popupDeleteCardElement, handleDeleteCardSubmit)
+
+Array.from(popupElementList).forEach(popupElement => {
+  new Popup(popupElement).setEventlisteners();
+})
+
+const setInputPopupFormEdit = () => {
+  popupInputTypeName.value = userInfo.getUserInfo().name
+  popupInputTypeJob.value = userInfo.getUserInfo().job
+}
 
 editProfileBtnElement.addEventListener('click', () => {
   formEditValidator.resetInputError(formEditElement)
-  inputPopupFormEditContent()
+  setInputPopupFormEdit()
   popupEditProfile.open()
 });
 
@@ -160,10 +168,10 @@ profileAvatarElement.addEventListener('click', () => {
   popupChangeAvatar.open()
 })
 
-const initializeCards = (data) => {
-  console.log(data)
+const initializeCards = (cardData) => {
+  console.log('init cards: ', cardData)
   const cardList = new Section({
-    items: data,
+    items: cardData,
     renderer: (item) => {
       const card = createCard(item)
       cardList.addItem(card)
@@ -173,12 +181,12 @@ const initializeCards = (data) => {
 }
 
 const initializeUser = (data) => {
-  console.log(data)
-  profileAvatarElement.style.backgroundImage = `url(${data.avatar})`
+  console.log('init user: ', data)
   userInfo.setUserInfo(data)
+  userInfo.setUserId(data)
 }
 
-//Immediate Rejection Handling
+//Immediate Reject Handling
 Promise.all([
   api.getInitialCards()
     .catch(error => {
@@ -190,6 +198,10 @@ Promise.all([
     })
 ])
   .then(data => {
-    initializeCards(data[0])
     initializeUser(data[1])
+    return data
   })
+  .then((data) => {
+    initializeCards(data[0])
+  })
+

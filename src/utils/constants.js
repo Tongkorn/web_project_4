@@ -7,6 +7,7 @@ export const popupFormAddElement = document.querySelector('[data-form="popup__fo
 export const formAddElement = popupFormAddElement.querySelector('form');
 export const popupFormEditElement = document.querySelector('[data-form="popup__form_edit"]');
 export const formEditElement = popupFormEditElement.querySelector('form');
+export const popupElementList = document.querySelectorAll('.popup');
 export const popupInputTypeName = document.querySelector('.popup__input_type_name');
 export const popupInputTypeJob = document.querySelector('.popup__input_type_job');
 export const cardsContainerElement = document.querySelector(".cards");
