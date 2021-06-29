@@ -1,19 +1,33 @@
+/*******************************************************************
+  Import css for webpack to read.
+ ******************************************************************/
 import "./index.css"
 
-// import { initialCards } from '../utils/data-card.js'
-import { Card } from '../components/Card.js'
-import { FormValidator } from '../components/FormValidator.js'
+/*******************************************************************
+  Import const and utils.
+ ******************************************************************/
+
 import { profileTitleElement, profileSubtitleElement, popupElementList, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement, popupInputTypeName, popupInputTypeJob, cardTemplate, popupDeleteCardElement, profileAvatarElement, popupChangeAvatarElement } from '../utils/constants.js'
 import { validationConfig } from '../utils/validate-selector.js'
 import { loadingText } from '../utils/loading.js'
 
+/*******************************************************************
+  Import Method Classes.
+ ******************************************************************/
+
 import API from '../components/Api.js';
+import { Card } from '../components/Card.js'
+import { FormValidator } from '../components/FormValidator.js'
 import Section from '../components/Section.js'
 import UserInfo from '../components/UserInfo.js'
 import Popup from '../components/Popup.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithDelete from '../components/PopupWithDelete.js'
+
+/*******************************************************************
+  Setting API request url and header.
+ ******************************************************************/
 
 const api = new API(
   "https://around.nomoreparties.co/v1/", {
@@ -112,6 +126,7 @@ const handleChangeAvatar = (newAvatarObj) => {
 }
 
 const handleDeleteCallbackFn = () => {
+  const cardId = popupWithDelete.cardId;
   api.deleteCard(cardId)
     .then(() => {
       document.getElementById(`${popupWithDelete.cardId}`).remove()
@@ -128,7 +143,7 @@ const setInputPopupFormEdit = () => {
 }
 
 /*******************************************************************
-  Form Validators
+  Form Validators.
  ******************************************************************/
 
 const formEditValidator = new FormValidator(validationConfig, formEditElement);
@@ -138,7 +153,7 @@ formAddValidator.enableValidation();
 
 
 /*******************************************************************
-  Popup With Forms + confirm Deletetion
+  Popup With Forms + confirm Deletetion.
  ******************************************************************/
 
 const popupEditProfile = new PopupWithForm(popupFormEditElement, handleFormEditSubmit)
@@ -186,7 +201,7 @@ const initializeUser = (data) => {
 }
 
 /*******************************************************************
-  Immediate Reject Handling
+  Immediate Reject Handling.
  ******************************************************************/
 
 Promise.all([
