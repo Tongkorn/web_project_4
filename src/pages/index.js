@@ -78,7 +78,6 @@ const handleFormEditSubmit = (newUserData) => {
   loadingText(popupFormEditElement, true)
   api.updateUser(newUserData)
     .then((result) => {
-      console.log(result)
       userInfo.setUserInfo(newUserData)
       loadingText(popupFormEditElement, false)
       popupEditProfile.close()
@@ -92,7 +91,6 @@ const handleFormAddSubmit = (newUserData) => {
   loadingText(popupFormAddElement, true)
   api.addCard(newUserData)
     .then((res) => {
-      console.log(res)
       loadingText(popupFormAddElement, false)
       createSection(res).renderItems()
       popupAddCard.close()

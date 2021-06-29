@@ -6,7 +6,6 @@ export default class Section {
   }
 
   renderItems() {
-    console.log('rendered items in section: ', this._items)
     if ((this._items).length > 1) {
       this._items.forEach(item => { this._renderer(item) });
     } else {
