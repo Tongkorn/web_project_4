@@ -1,8 +1,7 @@
-export const profileElement = document.querySelector('.profile')
-export const editProfileBtnElement = profileElement.querySelector('.profile__edit-btn')
-export const addCardBtnElement = profileElement.querySelector('.profile__add-btn')
-export const profileTitleElement = profileElement.querySelector('.profile__name');
-export const profileSubtitleElement = profileElement.querySelector('.profile__job');
+export const editProfileBtnElement = document.querySelector('.profile__edit-btn')
+export const addCardBtnElement = document.querySelector('.profile__add-btn')
+export const profileTitleElement = document.querySelector('.profile__name');
+export const profileSubtitleElement = document.querySelector('.profile__job');
 export const popupFormAddElement = document.querySelector('[data-form="popup__form_add"]')
 export const formAddElement = popupFormAddElement.querySelector('form');
 export const popupFormEditElement = document.querySelector('[data-form="popup__form_edit"]');

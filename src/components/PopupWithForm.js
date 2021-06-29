@@ -20,11 +20,14 @@ export default class PopupWithForm extends Popup {
     this.setEventlisteners()
   }
 
+  resetForm() {
+    this.popupElement.reset()
+  }
+
   setEventlisteners() {
     this.popupElement.querySelector('form').addEventListener('submit', (event) => {
       event.preventDefault()
       this.handleFormSubmit(this._getInputValues());
-      super.close()
     })
   }
 }

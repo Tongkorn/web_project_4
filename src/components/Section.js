@@ -6,10 +6,20 @@ export default class Section {
   }
 
   renderItems() {
-    this._items.forEach(item => { this._renderer(item) });
+    console.log('rendered items in section: ', this._items)
+    if ((this._items).length > 1) {
+      this._items.forEach(item => { this._renderer(item) });
+    } else {
+      this._renderer(this._items)
+    }
   }
 
-  addItem(element) {
+  addInitialItem(element) {
     this._container.append(element)
   }
+
+  addNewItem(element) {
+    this._container.prepend(element)
+  }
+
 }

@@ -5,6 +5,7 @@ import { Card } from '../components/Card.js'
 import { FormValidator } from '../components/FormValidator.js'
 import { profileTitleElement, profileSubtitleElement, popupElementList, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement, popupInputTypeName, popupInputTypeJob, cardTemplate, popupDeleteCardElement, profileAvatarElement, popupChangeAvatarElement } from '../utils/constants.js'
 import { validationConfig } from '../utils/validate-selector.js'
+import { loadingText } from '../utils/loading.js'
 
 import API from '../components/Api.js';
 import Section from '../components/Section.js'
@@ -13,16 +14,6 @@ import Popup from '../components/Popup.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithDelete from '../components/PopupWithDelete.js'
-
-const popupWithImage = new PopupWithImage(popupViewImageElement);
-const formEditValidator = new FormValidator(validationConfig, formEditElement);
-const formAddValidator = new FormValidator(validationConfig, formAddElement);
-formEditValidator.enableValidation();
-formAddValidator.enableValidation();
-
-
-const userInfo = new UserInfo(profileTitleElement, profileSubtitleElement, profileAvatarElement
-)
 
 const api = new API(
   "https://around.nomoreparties.co/v1/", {
@@ -33,76 +24,64 @@ const api = new API(
   }
 })
 
+const popupWithImage = new PopupWithImage(popupViewImageElement);
+const userInfo = new UserInfo(profileTitleElement, profileSubtitleElement, profileAvatarElement)
+
+const handleCardClickCallbackFn = (event) => {
+  popupWithImage.open(event)
+}
+
+const handleTrashClickCallbackFn = (cardId) => {
+  popupWithDelete.open(cardId)
+}
+
 const createCard = ({ name, link, _id, likes, owner }) => {
   const userId = userInfo.getUserId()
   const cardElement = new Card({
-    name, link, _id, likes, owner,
-    handleCardClickCallbackFn: (event) => {
-      popupWithImage.open(event)
-    },
-    handleTrashClickCallbackFn: (event) => {
-      popupWithDelete.open(event)
-    },
+    name, link, _id, likes, owner, handleCardClickCallbackFn, handleTrashClickCallbackFn,
     handleLikeClickCallbackFn: (event) => {
-      if (!(event.target.classList.contains("card__like_active"))) {
-        api.addLike(event.target.closest(".card").id)
-          .then(res => {
-            console.log(res)
-            event.target.classList.toggle('card__like_active');
-            event.target.closest(".card").querySelector('.card__like-total').textContent = parseInt(event.target.closest(".card").querySelector('.card__like-total').textContent) + 1
+      const cardId = event.target.closest(".card").id
+      !(event.target.classList.contains("card__like_active"))
+        ? api.addLike(cardId)
+          .then((res) => {
+            cardElement.addLikes(res, event)
           })
           .catch(err => {
             console.log(`Error: ${err}`)
           })
-      } else if (event.target.classList.contains("card__like_active")) {
-        api.removeLike(event.target.closest(".card").id)
-          .then(res => {
-            console.log(res)
-            event.target.classList.toggle('card__like_active');
-            event.target.closest(".card").querySelector('.card__like-total').textContent = parseInt(event.target.closest(".card").querySelector('.card__like-total').textContent) - 1
+        : api.removeLike(cardId)
+          .then((res) => {
+            cardElement.removeLikes(res, event)
           })
           .catch(err => {
             console.log(`Error: ${err}`)
           })
-      }
     }
   }, userId, cardTemplate)
   return cardElement.generateCard()
 }
 
-//TODO: Refactor Needed, more research on switching textContent
-const saving = (popupElement, isSaving) => {
-  const element = popupElement.querySelector('.popup__btn_type_save')
-  if (isSaving) {
-    element.innerHTML = element.getAttribute("data-text-saving")
-  } else {
-    element.innerHTML = element.getAttribute("data-text-original")
-  }
-}
-
-//TODO: Remove Card after successful delete in server.
-const handleDeleteCardSubmit = (cardEvent) => {
-  console.log(cardEvent)
-  // api.deleteCard(cardEvent.target.closest(".card").id)
-  api.deleteCard(cardEvent)
-    .then((result) => {
-      console.log(result)
-      console.log(cardsContainerElement.dataset.id)
-      // cardEvent.target.closest(".card").remove();
-    })
-    .catch(err => {
-      console.log(`Error: ${err}`)
-    })
+const createSection = (cardData, prepend = true) => {
+  const section = new Section({
+    items: cardData,
+    renderer: (item) => {
+      const card = createCard(item)
+      prepend
+        ? section.addNewItem(card)
+        : section.addInitialItem(card)
+    }
+  }, cardsContainerElement)
+  return section
 }
 
 const handleFormEditSubmit = (newUserData) => {
-  saving(popupFormEditElement, true)
-
+  loadingText(popupFormEditElement, true)
   api.updateUser(newUserData)
     .then((result) => {
       console.log(result)
       userInfo.setUserInfo(newUserData)
-      saving(popupFormEditElement, false)
+      loadingText(popupFormEditElement, false)
+      popupEditProfile.close()
     })
     .catch(err => {
       console.log(`Error: ${err}`)
@@ -110,57 +89,81 @@ const handleFormEditSubmit = (newUserData) => {
 }
 
 const handleFormAddSubmit = (newUserData) => {
-  saving(popupFormAddElement, true)
-  console.log(newUserData)
-
+  loadingText(popupFormAddElement, true)
   api.addCard(newUserData)
-    .then((result) => {
-      console.log(result)
-      const newCard = createCard(result)
-      cardsContainerElement.prepend(newCard)
-      saving(popupFormAddElement, false)
-    })
-    .catch(err => {
+    .then((res) => {
+      console.log(res)
+      loadingText(popupFormAddElement, false)
+      createSection(res).renderItems()
+      popupAddCard.close()
+    }).catch(err => {
       console.log(`Error: ${err}`)
     })
 }
 
 const handleChangeAvatar = (newAvatarObj) => {
-  saving(popupChangeAvatarElement, true)
-
+  loadingText(popupChangeAvatarElement, true)
   api.changeProfilePic(newAvatarObj)
-    .then((result) => {
-      console.log(result)
+    .then(() => {
       profileAvatarElement.style.backgroundImage = `url(${newAvatarObj.avatar})`
-      saving(popupChangeAvatarElement, false)
+      loadingText(popupChangeAvatarElement, false)
     })
     .catch(err => {
       console.log(`Error: ${err}`)
     })
 }
 
+const handleDeleteCallbackFn = () => {
+  api.deleteCard(cardId)
+    .then(() => {
+      document.getElementById(`${popupWithDelete.cardId}`).remove()
+      popupWithDelete.close();
+    })
+    .catch(err => {
+      console.log(`Error: ${err}`)
+    })
+}
+
+const setInputPopupFormEdit = () => {
+  popupInputTypeName.value = profileTitleElement.textContent
+  popupInputTypeJob.value = profileSubtitleElement.textContent
+}
+
+/*******************************************************************
+  Form Validators
+ ******************************************************************/
+
+const formEditValidator = new FormValidator(validationConfig, formEditElement);
+const formAddValidator = new FormValidator(validationConfig, formAddElement);
+formEditValidator.enableValidation();
+formAddValidator.enableValidation();
+
+
+/*******************************************************************
+  Popup With Forms + confirm Deletetion
+ ******************************************************************/
+
 const popupEditProfile = new PopupWithForm(popupFormEditElement, handleFormEditSubmit)
 const popupAddCard = new PopupWithForm(popupFormAddElement, handleFormAddSubmit)
 const popupChangeAvatar = new PopupWithForm(popupChangeAvatarElement, handleChangeAvatar)
-const popupWithDelete = new PopupWithDelete(popupDeleteCardElement, handleDeleteCardSubmit)
+const popupWithDelete = new PopupWithDelete(popupDeleteCardElement, handleDeleteCallbackFn)
+
+/*******************************************************************
+  Set EventListeners on Static Buttons.
+ ******************************************************************/
 
 Array.from(popupElementList).forEach(popupElement => {
   new Popup(popupElement).setEventlisteners();
 })
 
-const setInputPopupFormEdit = () => {
-  popupInputTypeName.value = userInfo.getUserInfo().name
-  popupInputTypeJob.value = userInfo.getUserInfo().job
-}
-
 editProfileBtnElement.addEventListener('click', () => {
-  formEditValidator.resetInputError(formEditElement)
+  formEditValidator.resetErrorMessage(formEditElement)
   setInputPopupFormEdit()
   popupEditProfile.open()
 });
 
 addCardBtnElement.addEventListener('click', () => {
-  formAddValidator.resetInputError(formAddElement)
+  formAddValidator.resetErrorMessage(formAddElement)
   popupAddCard.open();
 })
 
@@ -168,25 +171,26 @@ profileAvatarElement.addEventListener('click', () => {
   popupChangeAvatar.open()
 })
 
+/*******************************************************************
+  Initialize cards and user info.
+ ******************************************************************/
+
 const initializeCards = (cardData) => {
-  console.log('init cards: ', cardData)
-  const cardList = new Section({
-    items: cardData,
-    renderer: (item) => {
-      const card = createCard(item)
-      cardList.addItem(card)
-    }
-  }, cardsContainerElement)
-  cardList.renderItems()
+  createSection(cardData, false).renderItems()
 }
 
 const initializeUser = (data) => {
-  console.log('init user: ', data)
   userInfo.setUserInfo(data)
+  userInfo.setAvatar(data)
   userInfo.setUserId(data)
+  popupInputTypeName.value = data.name
+  popupInputTypeJob.value = data.job
 }
 
-//Immediate Reject Handling
+/*******************************************************************
+  Immediate Reject Handling
+ ******************************************************************/
+
 Promise.all([
   api.getInitialCards()
     .catch(error => {

@@ -18,17 +18,50 @@ export class Card {
     return this.cardTemplate.querySelector(".card").cloneNode(true);
   }
 
-  // _fillHeart(event) {
-  //   event.target.classList.toggle('card__like_active');
-  // }
+  _fillHeart(event) {
+    event.target.classList.toggle('card__like_active');
+  }
+
+  _plusLike(res, event) {
+    event.target.closest(".card").querySelector(".card__like-total").textContent = (res.likes).length
+  }
 
   // _removeCard(event) {
   //   event.target.closest(".card").remove();
   // }
 
+  _minusLike(res, event) {
+    event.target.closest(".card").querySelector(".card__like-total").textContent = (res.likes).length
+  }
+
+  addLikes(res, event) {
+    this._fillHeart(event)
+    this._plusLike(res, event)
+  }
+
+  removeLikes(res, event) {
+    this._fillHeart(event)
+    this._minusLike(res, event)
+  }
+
+  _showUserFilledHeart() {
+    this.cardLikes.forEach(like => {
+      if (like['_id'] === this.userId) {
+        this.element.querySelector(".card__like-btn").classList.toggle('card__like_active')
+      }
+    })
+  }
+
+  _showTrash() {
+    this.element.querySelector(".card__delete").style.display = 'none';
+  }
+
   _setEventListeners() {
     this.element.querySelector(".card__like-btn").addEventListener('click', this.handleLikeClick);
-    this.element.querySelector(".card__delete").addEventListener('click', this.handleTrashClick);
+    this.element.querySelector(".card__delete").addEventListener('click', (event) => {
+      event.preventDefault
+      this.handleTrashClick(this.cardId)
+    });
     this.cardPic.addEventListener('click', this.handleCardClick)
   }
 
@@ -36,20 +69,13 @@ export class Card {
     this.cardPic.src = this.cardLink
     this.element.querySelector('.card__title').textContent = this.cardName;
     this.cardPic.alt = this.cardName;
-    this.element.id = this.cardId
     this.element.querySelector('.card__like-total').textContent = Object.keys(this.cardLikes).length
 
-    if (this.cardLikes.length > 0) {
-      this.cardLikes.forEach(like => {
-        if (like['_id'] === this.userId) {
-          this.element.querySelector(".card__like-btn").classList.toggle('card__like_active')
-        }
-      })
-    }
+    this.element.id = this.cardId
 
-    if (this.cardOwnerId !== this.userId) {
-      this.element.querySelector(".card__delete").style.display = 'none';
-    }
+    if (this.cardLikes.length > 0) this._showUserFilledHeart()
+    if (this.cardOwnerId !== this.userId) this._showTrash()
+
     this._setEventListeners();
     return this.element
   }
