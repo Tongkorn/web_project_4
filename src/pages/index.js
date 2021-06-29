@@ -27,14 +27,12 @@ const createCard = (cardData) => {
         event.preventDefault();
         handleDeleteCardSubmit(cardEvent)
         popupWithDelete.close()
-        console.log(cardEvent.target.closest(".card").id);
       })
     },
     handleLikeClick: (event) => {
       if (!(event.target.classList.contains("card__like_active"))) {
         addLike(event.target.closest(".card").id)
           .then(res => {
-            console.log(res)
             event.target.classList.toggle('card__like_active');
             event.target.closest(".card").querySelector('.card__like-total').textContent = parseInt(event.target.closest(".card").querySelector('.card__like-total').textContent) + 1
           })
@@ -44,7 +42,6 @@ const createCard = (cardData) => {
       } else if (event.target.classList.contains("card__like_active")) {
         removeLike(event.target.closest(".card").id)
           .then(res => {
-            console.log(res)
             event.target.classList.toggle('card__like_active');
             event.target.closest(".card").querySelector('.card__like-total').textContent = parseInt(event.target.closest(".card").querySelector('.card__like-total').textContent) - 1
           })
@@ -75,7 +72,6 @@ const saving = (popupElement, isSaving) => {
 const handleDeleteCardSubmit = (cardEvent) => {
   deleteCard(cardEvent.target.closest(".card").id)
     .then((result) => {
-      console.log(result)
       cardEvent.target.closest(".card").remove();
     })
     .catch(err => {
@@ -88,7 +84,6 @@ const handleFormEditSubmit = (newUserData) => {
 
   updateUser(newUserData)
     .then((result) => {
-      console.log(result)
       userInfo.setUserInfo(newUserData)
       saving(popupFormEditElement, false)
     })
@@ -102,7 +97,6 @@ const handleFormAddSubmit = (newUserData) => {
 
   addCard(newUserData)
     .then((result) => {
-      console.log(result)
       const newCard = createCard(result)
       cardsContainerElement.prepend(newCard)
       saving(popupFormAddElement, false)
@@ -117,7 +111,6 @@ const handleChangeAvatar = (newAvatarObj) => {
 
   changeProfilePic(newAvatarObj)
     .then((result) => {
-      console.log(result)
       profileAvatarElement.style.backgroundImage = `url(${newAvatarObj.avatar})`
       saving(popupChangeAvatarElement, false)
     })
@@ -152,7 +145,6 @@ profileAvatarElement.addEventListener('click', () => {
 
 getInitialCards()
   .then((res) => {
-    console.log(res);
     const cardList = new Section({
       items: res,
       renderer: (item) => {
@@ -168,7 +160,6 @@ getInitialCards()
 
 getUserData()
   .then((res) => {
-    console.log(res)
     profileAvatarElement.style.backgroundImage = `url(${res.avatar})`
     userInfo.setUserInfo(res)
   })
