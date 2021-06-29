@@ -11,7 +11,7 @@ export class FormValidator {
     this.buttonElement = this.formElement.querySelector(this.submitButtonSelector)
   }
 
-  resetInputError(element) {
+  resetErrorMessage(element) {
     const formElement = element.closest(this.formSelector)
     if (!!formElement) {
       const errorElementList = formElement.querySelectorAll(`.${this.errorClass}`)

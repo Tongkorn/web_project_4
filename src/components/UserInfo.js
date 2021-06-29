@@ -1,19 +1,25 @@
 export default class UserInfo {
-  constructor(profileTitleElement, profileSubtitleElement) {
+  constructor(profileTitleElement, profileSubtitleElement, profileAvatarElement) {
     this.name = profileTitleElement;
     this.job = profileSubtitleElement;
+    this.avatar = profileAvatarElement;
+    this.userId = '';
   }
 
-  getUserInfo() {
-    const userInfo = {
-      name: this.name.textContent,
-      job: this.job.textContent
-    }
-    return userInfo;
+  setUserInfo(userData) {
+    this.name.textContent = userData.name;
+    this.job.textContent = userData.about;
   }
 
-  setUserInfo(newUserData) {
-    this.name.textContent = newUserData.name;
-    this.job.textContent = newUserData.about;
+  setAvatar(userData) {
+    this.avatar.style.backgroundImage = `url(${userData.avatar})`
+  }
+
+  setUserId(userData) {
+    this.userId = userData._id
+  }
+
+  getUserId() {
+    return this.userId;
   }
 }
