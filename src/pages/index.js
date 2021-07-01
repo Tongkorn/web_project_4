@@ -7,7 +7,7 @@ import "./index.css"
   Import const and utils.
  ******************************************************************/
 
-import { profileTitleElement, profileSubtitleElement, popupElementList, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement, popupInputTypeName, popupInputTypeJob, cardTemplate, popupDeleteCardElement, profileAvatarElement, popupChangeAvatarElement } from '../utils/constants.js'
+import { profileTitleElement, profileSubtitleElement, popupFormEditElement, popupFormAddElement, formEditElement, formAddElement, popupViewImageElement, editProfileBtnElement, addCardBtnElement, cardsContainerElement, popupInputTypeName, popupInputTypeJob, cardTemplate, popupDeleteCardElement, profileAvatarElement, popupFormChangeAvatarElement, formChangeAvatarElement } from '../utils/constants.js'
 import { validationConfig } from '../utils/validate-selector.js'
 import { loadingText } from '../utils/loading.js'
 
@@ -20,7 +20,6 @@ import { Card } from '../components/Card.js'
 import { FormValidator } from '../components/FormValidator.js'
 import Section from '../components/Section.js'
 import UserInfo from '../components/UserInfo.js'
-import Popup from '../components/Popup.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithDelete from '../components/PopupWithDelete.js'
@@ -37,6 +36,10 @@ const api = new API(
     "Content-Type": "application/json"
   }
 })
+
+/*******************************************************************
+  Main functions.
+ ******************************************************************/
 
 const popupWithImage = new PopupWithImage(popupViewImageElement);
 const userInfo = new UserInfo(profileTitleElement, profileSubtitleElement, profileAvatarElement)
@@ -92,7 +95,7 @@ const handleFormEditSubmit = (newUserData) => {
   loadingText(popupFormEditElement, true)
   api.updateUser(newUserData)
     .then((result) => {
-      userInfo.setUserInfo(newUserData)
+      userInfo.setUserInfo(result)
       loadingText(popupFormEditElement, false)
       popupEditProfile.close()
     })
@@ -105,20 +108,21 @@ const handleFormAddSubmit = (newUserData) => {
   loadingText(popupFormAddElement, true)
   api.addCard(newUserData)
     .then((res) => {
-      loadingText(popupFormAddElement, false)
       createSection(res).renderItems()
       popupAddCard.close()
+      loadingText(popupFormAddElement, false)
     }).catch(err => {
       console.log(`Error: ${err}`)
     })
 }
 
 const handleChangeAvatar = (newAvatarObj) => {
-  loadingText(popupChangeAvatarElement, true)
+  loadingText(popupFormChangeAvatarElement, true)
   api.changeProfilePic(newAvatarObj)
-    .then(() => {
-      profileAvatarElement.style.backgroundImage = `url(${newAvatarObj.avatar})`
-      loadingText(popupChangeAvatarElement, false)
+    .then((result) => {
+      profileAvatarElement.style.backgroundImage = `url(${result.avatar})`
+      popupChangeAvatar.close()
+      loadingText(popupFormChangeAvatarElement, false)
     })
     .catch(err => {
       console.log(`Error: ${err}`)
@@ -137,41 +141,33 @@ const handleDeleteCallbackFn = () => {
     })
 }
 
-const setInputPopupFormEdit = () => {
-  popupInputTypeName.value = profileTitleElement.textContent
-  popupInputTypeJob.value = profileSubtitleElement.textContent
-}
-
 /*******************************************************************
   Form Validators.
  ******************************************************************/
 
-const formEditValidator = new FormValidator(validationConfig, formEditElement);
-const formAddValidator = new FormValidator(validationConfig, formAddElement);
+const formEditValidator = new FormValidator(validationConfig, popupFormEditElement);
+const formAddValidator = new FormValidator(validationConfig, popupFormAddElement);
+const formChangeAvatar = new FormValidator(validationConfig, popupFormChangeAvatarElement);
 formEditValidator.enableValidation();
 formAddValidator.enableValidation();
-
+formChangeAvatar.enableValidation();
 
 /*******************************************************************
-  Popup With Forms + confirm Deletetion.
+  Set EventListeners - Popup With Forms + confirm Deletetion.
  ******************************************************************/
 
 const popupEditProfile = new PopupWithForm(popupFormEditElement, handleFormEditSubmit)
 const popupAddCard = new PopupWithForm(popupFormAddElement, handleFormAddSubmit)
-const popupChangeAvatar = new PopupWithForm(popupChangeAvatarElement, handleChangeAvatar)
+const popupChangeAvatar = new PopupWithForm(popupFormChangeAvatarElement, handleChangeAvatar)
 const popupWithDelete = new PopupWithDelete(popupDeleteCardElement, handleDeleteCallbackFn)
-
-/*******************************************************************
-  Set EventListeners on Static Buttons.
- ******************************************************************/
-
-Array.from(popupElementList).forEach(popupElement => {
-  new Popup(popupElement).setEventlisteners();
-})
+popupEditProfile.setEventlisteners()
+popupAddCard.setEventlisteners()
+popupChangeAvatar.setEventlisteners()
+popupWithDelete.setEventlisteners()
 
 editProfileBtnElement.addEventListener('click', () => {
   formEditValidator.resetErrorMessage(formEditElement)
-  setInputPopupFormEdit()
+  userInfo.setPopupInput(popupInputTypeName, popupInputTypeJob)
   popupEditProfile.open()
 });
 
@@ -181,6 +177,7 @@ addCardBtnElement.addEventListener('click', () => {
 })
 
 profileAvatarElement.addEventListener('click', () => {
+  formAddValidator.resetErrorMessage(formChangeAvatarElement)
   popupChangeAvatar.open()
 })
 
@@ -196,29 +193,25 @@ const initializeUser = (data) => {
   userInfo.setUserInfo(data)
   userInfo.setAvatar(data)
   userInfo.setUserId(data)
-  popupInputTypeName.value = data.name
-  popupInputTypeJob.value = data.job
 }
 
 /*******************************************************************
-  Immediate Reject Handling.
+  Server Request - cards and user info.
  ******************************************************************/
 
 Promise.all([
-  api.getInitialCards()
-    .catch(error => {
-      return (`Error: ${error}`)
-    }),
+  api.getInitialCards(),
   api.getUserData()
-    .catch(error => {
-      return (`Error: ${error}`)
-    })
 ])
   .then(data => {
     initializeUser(data[1])
     return data
+  }).catch(error => {
+    return (`Error: ${error}`)
   })
   .then((data) => {
     initializeCards(data[0])
+  }).catch(error => {
+    return (`Error: ${error}`)
   })
 

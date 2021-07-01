@@ -26,10 +26,6 @@ export class Card {
     event.target.closest(".card").querySelector(".card__like-total").textContent = (res.likes).length
   }
 
-  // _removeCard(event) {
-  //   event.target.closest(".card").remove();
-  // }
-
   _minusLike(res, event) {
     event.target.closest(".card").querySelector(".card__like-total").textContent = (res.likes).length
   }

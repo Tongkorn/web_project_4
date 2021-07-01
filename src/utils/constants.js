@@ -2,18 +2,17 @@ export const editProfileBtnElement = document.querySelector('.profile__edit-btn'
 export const addCardBtnElement = document.querySelector('.profile__add-btn')
 export const profileTitleElement = document.querySelector('.profile__name');
 export const profileSubtitleElement = document.querySelector('.profile__job');
+export const profileAvatarElement = document.querySelector('.profile__avatar');
 export const popupFormAddElement = document.querySelector('[data-form="popup__form_add"]')
-export const formAddElement = popupFormAddElement.querySelector('form');
 export const popupFormEditElement = document.querySelector('[data-form="popup__form_edit"]');
+export const popupFormChangeAvatarElement = document.querySelector('[data-form="popup__form_edit-avatar"]')
+export const popupViewImageElement = document.querySelector('[data-image="popup__view_image"]')
+export const popupDeleteCardElement = document.querySelector('[data-form="popup__form_delete"]')
+export const formAddElement = popupFormAddElement.querySelector('form');
 export const formEditElement = popupFormEditElement.querySelector('form');
-export const popupElementList = document.querySelectorAll('.popup');
+export const formChangeAvatarElement = popupFormChangeAvatarElement.querySelector('form');
 export const popupInputTypeName = document.querySelector('.popup__input_type_name');
 export const popupInputTypeJob = document.querySelector('.popup__input_type_job');
+export const popupInputTypeLink = document.querySelector('.popup__input_type_link');
 export const cardsContainerElement = document.querySelector(".cards");
 export const cardTemplate = document.querySelector("#card-template").content;
-export const popupViewImageElement = document.querySelector('[data-image="popup__view_image"]')
-
-export const popupDeleteCardElement = document.querySelector('[data-form="popup__form_delete"]')
-
-export const profileAvatarElement = document.querySelector('.profile__avatar');
-export const popupChangeAvatarElement = document.querySelector('[data-form="popup__form_edit-avatar"]')

@@ -11,6 +11,11 @@ export default class UserInfo {
     this.job.textContent = userData.about;
   }
 
+  setPopupInput(inputNameElement, inputJobElement) {
+    inputNameElement.value = this.name.textContent
+    inputJobElement.value = this.job.textContent
+  }
+
   setAvatar(userData) {
     this.avatar.style.backgroundImage = `url(${userData.avatar})`
   }

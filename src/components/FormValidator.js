@@ -11,8 +11,7 @@ export class FormValidator {
     this.buttonElement = this.formElement.querySelector(this.submitButtonSelector)
   }
 
-  resetErrorMessage(element) {
-    const formElement = element.closest(this.formSelector)
+  resetErrorMessage(formElement) {
     if (!!formElement) {
       const errorElementList = formElement.querySelectorAll(`.${this.errorClass}`)
       const inputErrorElementList = formElement.querySelectorAll(`.${this.inputErrorClass}`)
@@ -84,6 +83,7 @@ export class FormValidator {
     this.formElement.addEventListener('submit', (e) => {
       e.preventDefault();
       // e.stopImmediatePropagation();
+      // e.stopPropagation();
     })
   }
 
