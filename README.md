@@ -32,12 +32,15 @@
 
 **Plan on Improving the project**
 
-- [x] New feature - Edit Profile
-- [x] New feature - Add Card
-- [x] New feature - Delete Card
-- [x] New feature - Expand Card Image
-- [x] Refactor to OOP
-- [ ] Store in server
+- [x] Edit Profile name and about.
+- [x] Add new Card.
+- [x] Delete Card (only owner can delete self-card).
+- [x] Expand Card Image.
+- [x] Edit Avatar picture.
+- [x] Display - interactive likes.
+- [x] OOP structure.
+- [x] Request data from server.
+- [x] Deploy on gh-pages
 
 **GitHub Pages** :+1:
 
