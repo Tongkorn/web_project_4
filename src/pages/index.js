@@ -96,11 +96,13 @@ const handleFormEditSubmit = (newUserData) => {
   api.updateUser(newUserData)
     .then((result) => {
       userInfo.setUserInfo(result)
-      loadingText(popupFormEditElement, false)
       popupEditProfile.close()
     })
     .catch(err => {
       console.log(`Error: ${err}`)
+    })
+    .then(() => {
+      loadingText(popupFormEditElement, false)
     })
 }
 
@@ -110,9 +112,11 @@ const handleFormAddSubmit = (newUserData) => {
     .then((res) => {
       createSection(res).renderItems()
       popupAddCard.close()
-      loadingText(popupFormAddElement, false)
     }).catch(err => {
       console.log(`Error: ${err}`)
+    })
+    .then(() => {
+      loadingText(popupFormAddElement, false)
     })
 }
 
@@ -120,12 +124,14 @@ const handleChangeAvatar = (newAvatarObj) => {
   loadingText(popupFormChangeAvatarElement, true)
   api.changeProfilePic(newAvatarObj)
     .then((result) => {
-      profileAvatarElement.style.backgroundImage = `url(${result.avatar})`
+      profileAvatarElement.style.backgroundImage = `url(${(result.avatar).toString()})`
       popupChangeAvatar.close()
-      loadingText(popupFormChangeAvatarElement, false)
     })
     .catch(err => {
       console.log(`Error: ${err}`)
+    })
+    .then(() => {
+      loadingText(popupFormChangeAvatarElement, false)
     })
 }
 
@@ -177,7 +183,7 @@ addCardBtnElement.addEventListener('click', () => {
 })
 
 profileAvatarElement.addEventListener('click', () => {
-  formAddValidator.resetErrorMessage(formChangeAvatarElement)
+  formChangeAvatar.resetErrorMessage(formChangeAvatarElement)
   popupChangeAvatar.open()
 })
 

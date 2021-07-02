@@ -9,12 +9,12 @@ export default class PopupWithImage extends Popup {
   }
 
   open(event) {
+    super.setEventlisteners()
     const cardText = `${(event.target.parentElement).querySelector(".card__title").textContent}`
     this.popupImg.src = '' //reset image before open popup.
     this.popupImg.src = event.target.src
     this.popupImgCaption.textContent = cardText
     this.popupImg.alt = cardText
-
     super.open()
   }
 }
